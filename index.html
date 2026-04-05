@@ -874,3 +874,16 @@ function cerrarModal(){
 }
 
 function cerrarFondo(e){
+  if(e.target===document.getElementById('modal-fondo')) cerrarModal();
+}
+
+function copiarCodigo(btn){
+  navigator.clipboard.writeText(btn.closest('.bloque-codigo').querySelector('code').innerText)
+    .then(()=>{ btn.textContent='¡Copiado!'; setTimeout(()=>btn.textContent='Copiar',2000); });
+}
+
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') cerrarModal(); });
+renderizarProyectos();
+</script>
+</body>
+</html>
