@@ -373,7 +373,7 @@ footer{background:var(--tinta);border-top:1px solid rgba(255,255,255,0.05);paddi
     <a href="#dashboards">Dashboards</a>
     <a href="#proyectos">Proyectos</a>
     <a href="#perfil">Perfil</a>
-    <a href="/cdn-cgi/l/email-protection#284d4c5d495a4c47064c4946414d4406455c525a4c52684f45494144064b4745" class="nav-cta">Contacto</a>
+    <a href="#" onclick="enviarCorreo();return false;" class="nav-cta">Contacto</a>
   </div>
 </nav>
 
@@ -392,7 +392,7 @@ footer{background:var(--tinta);border-top:1px solid rgba(255,255,255,0.05);paddi
       con enfoque en finanzas cuantitativas y aprendizaje automático.
     </p>
     <div class="acciones">
-      <a href="/cdn-cgi/l/email-protection#ee8b8a9b8f9c8a81c08a8f80878b82c0839a949c8a94ae89838f8782c08d8183" class="btn-principal">Contáctame</a>
+      <a href="#" onclick="enviarCorreo();return false;" class="btn-principal">Contáctame</a>
       <a href="#proyectos" class="btn-borde">Ver proyectos</a>
     </div>
   </div>
@@ -701,29 +701,60 @@ footer{background:var(--tinta);border-top:1px solid rgba(255,255,255,0.05);paddi
 </section>
 
 <!-- CONTACTO -->
-<div style="background:var(--tinta);padding:5rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
-  <div>
-    <div class="ct-ceja">¿Tienes un proyecto o vacante?</div>
-    <div class="ct-titulo">Hablemos <span>sobre datos.</span></div>
-    <div class="acciones">
-      <a href="/cdn-cgi/l/email-protection#1d7879687c6f797233797c73747871337069676f79675d7a707c7471337e7270" class="btn-principal">Enviar correo</a>
+<section id="contacto" style="background:var(--tinta);padding:5rem 3.5rem;">
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+    <div>
+      <div class="ct-ceja">¿Tienes un proyecto o vacante?</div>
+      <div class="ct-titulo">Hablemos <span>sobre datos.</span></div>
+      <p style="font-size:14px;font-weight:300;color:rgba(255,255,255,0.5);line-height:1.8;max-width:400px;margin-bottom:2rem;">
+        Estoy disponible para proyectos de analítica, ciencia de datos, finanzas cuantitativas
+        y consultoría. No dudes en escribirme.
+      </p>
+      <div class="acciones">
+        <a href="#" onclick="enviarCorreo();return false;" class="btn-principal">Enviar correo</a>
+      </div>
+    </div>
+    <div class="ct-info">
+      <div class="ci-fila">
+        <div class="ci-icono">✉</div>
+        <div class="ci-val">
+          <a href="#" onclick="enviarCorreo();return false;"
+             style="color:rgba(255,255,255,0.7);text-decoration:none;">
+            <span id="email-visible"></span>
+          </a>
+        </div>
+      </div>
+      <div class="ci-fila">
+        <div class="ci-icono">✆</div>
+        <div class="ci-val">55-1649-9822</div>
+      </div>
+      <div class="ci-fila">
+        <div class="ci-icono">◎</div>
+        <div class="ci-val">Ciudad de México, México</div>
+      </div>
+      <div class="ci-fila">
+        <div class="ci-icono" style="font-size:12px;font-weight:600;">in</div>
+        <div class="ci-val">
+          <a href="https://www.linkedin.com/in/eduardo-daniel-martinez-rodriguez/"
+             target="_blank"
+             style="color:rgba(255,255,255,0.7);text-decoration:none;">
+            linkedin.com/in/eduardo-daniel-martinez
+          </a>
+        </div>
+      </div>
+      <div class="ci-fila">
+        <div class="ci-icono" style="font-size:12px;font-weight:600;">gh</div>
+        <div class="ci-val">
+          <a href="https://github.com/Dani-mx"
+             target="_blank"
+             style="color:rgba(255,255,255,0.7);text-decoration:none;">
+            github.com/Dani-mx
+          </a>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="ct-info">
-    <div class="ci-fila">
-      <div class="ci-icono">✉</div>
-      <div class="ci-val"><a href="/cdn-cgi/l/email-protection#4c2928392d3e282362282d22252920622138363e28360c2b212d2520622f2321"><span class="__cf_email__" data-cfemail="85e0e1f0e4f7e1eaabe1e4ebece0e9abe8f1fff7e1ffc5e2e8e4ece9abe6eae8">[email&#160;protected]</span></a></div>
-    </div>
-    <div class="ci-fila">
-      <div class="ci-icono">✆</div>
-      <div class="ci-val">55-1649-9822</div>
-    </div>
-    <div class="ci-fila">
-      <div class="ci-icono">◎</div>
-      <div class="ci-val">Ciudad de México, México</div>
-    </div>
-  </div>
-</div>
+</section>
 
 <footer>
   <span class="pie-nombre">Eduardo Daniel Martínez Rodríguez</span>
@@ -874,6 +905,22 @@ function copiarCodigo(btn){
 
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') cerrarModal(); });
 renderizarProyectos();
+</script>
+
+<script>
+function enviarCorreo(){
+  var u = 'eduardo.daniel.mtzrdz';
+  var d = 'gmail.com';
+  window.location.href = 'mai' + 'lto:' + u + '@' + d;
+}
+// Mostrar email en los spans
+document.addEventListener('DOMContentLoaded', function(){
+  var u = 'eduardo.daniel.mtzrdz';
+  var d = 'gmail.com';
+  var correo = u + '@' + d;
+  var spans = document.querySelectorAll('#email-visible');
+  spans.forEach(function(s){ s.textContent = correo; });
+});
 </script>
 </body>
 </html>
