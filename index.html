@@ -187,27 +187,38 @@ section{padding:6rem 3.5rem;}
 
 /* ── PROYECTOS ── */
 #proyectos{background:var(--crema);}
-.lista-proyectos{display:flex;flex-direction:column;gap:1px;background:var(--bd);}
-.proy-fila{
-  background:var(--crema);
-  display:grid;grid-template-columns:80px 1fr auto;
-  align-items:center;gap:2rem;padding:2rem 2.5rem;
-  cursor:pointer;text-decoration:none;
-  transition:background .2s;
+.lista-proyectos{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(320px,1fr));
+  gap:20px;
 }
-.proy-fila:hover{background:var(--blanco);}
+.proy-fila{
+  background:var(--blanco);
+  border:1px solid var(--bd2);
+  border-radius:10px;
+  padding:2rem;
+  cursor:pointer;text-decoration:none;
+  display:flex;flex-direction:column;
+  transition:box-shadow .25s,border-color .25s,transform .2s;
+  position:relative;
+}
+.proy-fila:hover{
+  box-shadow:0 8px 32px rgba(0,0,0,0.08);
+  border-color:var(--terr-bd);
+  transform:translateY(-2px);
+}
 .proy-num{
-  font-family:var(--serif);font-size:2.5rem;font-weight:700;font-style:italic;
-  color:var(--corteza);line-height:1;transition:color .2s;
+  font-family:var(--serif);font-size:2.2rem;font-weight:700;font-style:italic;
+  color:var(--corteza);line-height:1;margin-bottom:1rem;transition:color .2s;
 }
 .proy-fila:hover .proy-num{color:var(--terr-lt);}
-.proy-cat{font-family:var(--mono);font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--terracota);margin-bottom:.35rem;}
-.proy-titulo{font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--tinta);letter-spacing:-0.01em;margin-bottom:.35rem;}
-.proy-desc{font-size:13px;font-weight:300;color:var(--tinta3);line-height:1.6;}
-.proy-meta{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
-.proy-tec{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;}
+.proy-cat{font-family:var(--mono);font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--terracota);margin-bottom:.5rem;}
+.proy-titulo{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--tinta);letter-spacing:-0.01em;margin-bottom:.6rem;}
+.proy-desc{font-size:13px;font-weight:300;color:var(--tinta3);line-height:1.7;flex:1;margin-bottom:1.4rem;}
+.proy-meta{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+.proy-tec{display:flex;gap:5px;flex-wrap:wrap;}
 .proy-tech{font-family:var(--mono);font-size:9px;color:var(--tinta3);background:var(--piedra);border:1px solid var(--bd2);padding:3px 8px;border-radius:3px;}
-.proy-flecha{font-size:20px;color:var(--corteza);transition:color .2s,transform .2s;}
+.proy-flecha{font-size:18px;color:var(--corteza);transition:color .2s,transform .2s;flex-shrink:0;}
 .proy-fila:hover .proy-flecha{color:var(--terracota);transform:translate(3px,-3px);}
 
 /* ── PERFIL ── */
@@ -315,8 +326,7 @@ footer{background:var(--tinta);border-top:1px solid rgba(255,255,255,0.05);paddi
   #contacto{grid-template-columns:1fr;}
   .banda-herr{padding:1.5rem;}
   footer{padding:1.5rem;flex-direction:column;gap:.8rem;}
-  .proy-fila{grid-template-columns:50px 1fr auto;gap:1rem;padding:1.5rem;}
-  .proy-num{font-size:1.8rem;}
+  .lista-proyectos{grid-template-columns:1fr;}
   .modal-cabeza{padding:1.5rem 1.5rem 0;}
   .modal-pestañas{padding:0 1.5rem;}
   .mp-panel{padding:1.8rem 1.5rem;}
@@ -654,179 +664,49 @@ footer{background:var(--tinta);border-top:1px solid rgba(255,255,255,0.05);paddi
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const PROYECTOS = [
   {
-    id:'op', cat:'Finanzas cuantitativas', num:'01', url:'Proyectos/01_Optimizacion_Portafolios/optimizacion_portafolios.html',
-    titulo:'Optimización de Portafolios',
-    desc:'Frontera eficiente de Markowitz, máximo índice de Sharpe y análisis de correlaciones sobre datos históricos reales.',
-    tec:['Python','NumPy','SciPy','Matplotlib'],
-    pestañas:{
-      'Introducción':`<div class="prosa"><p>La <strong>teoría moderna de portafolios</strong> de Harry Markowitz (1952) establece que existe un conjunto de portafolios eficientes que maximizan el retorno para cada nivel de riesgo. Este proyecto construye esa frontera y encuentra el portafolio de máximo índice de Sharpe.</p><h3>Supuestos del modelo</h3><ul><li>Los retornos se distribuyen normalmente</li><li>Los inversionistas son aversos al riesgo</li><li>Sin costos de transacción ni impuestos</li><li>Horizonte de un período</li></ul></div>`,
-      'Desarrollo':`<div class="prosa"><h3>Formulación matemática</h3><p>Sea <strong>w</strong> el vector de pesos del portafolio. El problema de optimización se define como:</p><div class="formula"><span class="formula-etq">Retorno esperado del portafolio</span>μ_p = wᵀ μ</div><div class="formula"><span class="formula-etq">Varianza del portafolio</span>σ²_p = wᵀ Σ w</div><div class="formula"><span class="formula-etq">Índice de Sharpe (maximizar)</span>S = (μ_p − r_f) / σ_p</div><p>Sujeto a <strong>Σwᵢ = 1</strong> (los pesos suman 1) y <strong>wᵢ ≥ 0</strong> (sin posiciones cortas).</p></div>`,
-      'Código':`<div class="bloque-codigo"><div class="cod-cabeza"><span class="cod-lang">Python</span><button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button></div><pre><code class="language-python">import numpy as np
-from scipy.optimize import minimize
-
-def estadisticas_portafolio(pesos, retornos, covarianza, rf=0.02):
-    mu    = pesos @ retornos
-    sigma = np.sqrt(pesos @ covarianza @ pesos)
-    sharpe = (mu - rf) / sigma
-    return mu, sigma, sharpe
-
-def max_sharpe(retornos, covarianza, rf=0.02):
-    n  = len(retornos)
-    w0 = np.ones(n) / n
-    restricciones = {'type': 'eq', 'fun': lambda w: w.sum() - 1}
-    limites = [(0, 1)] * n
-    resultado = minimize(
-        lambda w: -estadisticas_portafolio(w, retornos, covarianza, rf)[2],
-        w0, method='SLSQP',
-        bounds=limites, constraints=restricciones
-    )
-    return resultado.x
-
-# Simulación de 10,000 portafolios para trazar la frontera
-retornos_sim, vols_sim = [], []
-for _ in range(10_000):
-    w = np.random.dirichlet(np.ones(n_activos))
-    r, s, _ = estadisticas_portafolio(w, ret_medios, cov_matriz)
-    retornos_sim.append(r)
-    vols_sim.append(s)
-
-pesos_opt = max_sharpe(ret_medios, cov_matriz)
-mu_opt, sigma_opt, sharpe_opt = estadisticas_portafolio(pesos_opt, ret_medios, cov_matriz)
-print(f"Índice de Sharpe óptimo: {sharpe_opt:.4f}")</code></pre></div>`,
-      'Resultados':`<div class="prosa"><div class="resultados-grid"><div class="res-caja"><div class="res-etq">Índice de Sharpe</div><div class="res-val">1.42</div><div class="res-sub">portafolio óptimo</div></div><div class="res-caja"><div class="res-etq">Retorno anual</div><div class="res-val">18.3%</div><div class="res-sub">esperado</div></div><div class="res-caja"><div class="res-etq">Volatilidad</div><div class="res-val">11.5%</div><div class="res-sub">anualizada</div></div><div class="res-caja"><div class="res-etq">Activos</div><div class="res-val">8</div><div class="res-sub">en cartera</div></div></div><p>El portafolio óptimo supera en <strong>63% el índice de Sharpe del benchmark</strong>. Tres activos concentran el 60% del peso, mientras los activos altamente correlacionados quedan con pesos cercanos a cero.</p></div>`,
-      'Conclusiones':`<div class="prosa"><p>La diversificación según Markowitz reduce el riesgo sin sacrificar retorno esperado. Sin embargo, el modelo es sensible a la estimación de medias y covarianzas — en producción se recomienda el estimador robusto <strong>Ledoit-Wolf</strong>.</p><h3>Extensiones planificadas</h3><ul><li>Restricciones de caída máxima (drawdown)</li><li>Rebalanceo dinámico con ventana rodante</li><li>Comparación con el modelo Black-Litterman</li></ul></div>`
-    }
+    id: 'op',
+    num: '01',
+    cat: 'Finanzas cuantitativas',
+    titulo: 'Optimizacion de Portafolios',
+    desc: 'Frontera eficiente de Markowitz, maximo indice de Sharpe y analisis de correlaciones sobre datos historicos reales.',
+    tec: ['Python', 'NumPy', 'SciPy', 'Plotly'],
+    url: 'Proyectos/01_Optimizacion_Portafolios/optimizacion_portafolios.html'
   },
   {
-    id:'mc', cat:'Simulación estocástica', num:'02',
-    titulo:'Simulación Monte Carlo',
-    desc:'Valuación de opciones europeas por simulación y cálculo de Valor en Riesgo bajo movimiento browniano geométrico.',
-    tec:['Python','NumPy','SciPy','Plotly'],
-    pestañas:{
-      'Introducción':`<div class="prosa"><p>La <strong>simulación Monte Carlo</strong> aproxima distribuciones de resultados mediante miles de trayectorias aleatorias. En finanzas es la herramienta estándar para valorar derivados sin solución cerrada y cuantificar el riesgo de cola.</p><p>Aplicaciones de este proyecto:</p><ul><li>Valuación de opciones europeas de compra y venta</li><li>Valor en Riesgo (VaR) al 95% y 99%</li><li>Pérdida Esperada en caso de incumplimiento (CVaR)</li></ul></div>`,
-      'Desarrollo':`<div class="prosa"><h3>Movimiento browniano geométrico</h3><div class="formula"><span class="formula-etq">Ecuación diferencial estocástica</span>dS = μS dt + σS dW_t</div><div class="formula"><span class="formula-etq">Solución exacta por lema de Itô</span>S(t) = S₀ · exp[(μ − σ²/2)t + σ√t · Z],  Z ~ N(0,1)</div><div class="formula"><span class="formula-etq">Valor en Riesgo</span>VaR_α = −(μ_P + z_α · σ_P · √T)</div></div>`,
-      'Código':`<div class="bloque-codigo"><div class="cod-cabeza"><span class="cod-lang">Python</span><button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button></div><pre><code class="language-python">import numpy as np
-
-def simular_mbg(S0, mu, sigma, T, dt, n_sims):
-    """Simula n_sims trayectorias de precio bajo MBG."""
-    pasos  = int(T / dt)
-    Z      = np.random.standard_normal((n_sims, pasos))
-    factor = np.exp((mu - 0.5*sigma**2)*dt + sigma*np.sqrt(dt)*Z)
-    S      = np.empty((n_sims, pasos+1)); S[:,0] = S0
-    for t in range(pasos):
-        S[:,t+1] = S[:,t] * factor[:,t]
-    return S
-
-def valuar_opcion(S0, K, r, sigma, T, tipo='compra', n=100_000):
-    ST = simular_mbg(S0, r, sigma, T, 1/252, n)[:,-1]
-    pagos = np.maximum(ST-K, 0) if tipo=='compra' else np.maximum(K-ST, 0)
-    precio = np.exp(-r*T) * np.mean(pagos)
-    error  = np.std(pagos) / np.sqrt(n)
-    return precio, error
-
-def calcular_var(S0, mu, sigma, T, confianza=0.95, n=100_000):
-    ST      = simular_mbg(S0, mu, sigma, T, T, n)[:,-1]
-    retornos = (ST - S0) / S0
-    var     = np.percentile(retornos, (1-confianza)*100)
-    cvar    = retornos[retornos<=var].mean()
-    return var, cvar
-
-precio, error = valuar_opcion(100, 100, 0.05, 0.20, 1)
-var95, cvar95 = calcular_var(100, 0.08, 0.20, 1/252)
-print(f"Opción de compra: ${precio:.4f} ± {error:.4f}")
-print(f"VaR 95%: {var95:.2%} | Pérdida esperada: {cvar95:.2%}")</code></pre></div>`,
-      'Resultados':`<div class="prosa"><div class="resultados-grid"><div class="res-caja"><div class="res-etq">Precio opción (sim.)</div><div class="res-val">$8.43</div><div class="res-sub">Black-Scholes: $8.41</div></div><div class="res-caja"><div class="res-etq">VaR 95%</div><div class="res-val">−4.2%</div><div class="res-sub">horizonte 1 día</div></div><div class="res-caja"><div class="res-etq">Pérdida esperada</div><div class="res-val">−6.8%</div><div class="res-sub">riesgo de cola</div></div><div class="res-caja"><div class="res-etq">Convergencia</div><div class="res-val">±0.5%</div><div class="res-sub">con 50k simulaciones</div></div></div><p>El error estándar de $0.02 confirma <strong>alta precisión</strong> con 100k trayectorias. La Pérdida Esperada supera al VaR en 62%, evidenciando la importancia de medir el riesgo de cola.</p></div>`,
-      'Conclusiones':`<div class="prosa"><p>La simulación valida los precios de Black-Scholes y es extensible a opciones con barreras y productos que dependen de toda la trayectoria del precio. La técnica de <strong>variables antitéticas</strong> reduce el error estándar un 40% sin costo computacional adicional.</p></div>`
-    }
+    id: 'mc',
+    num: '02',
+    cat: 'Simulacion estocastica',
+    titulo: 'Simulacion Monte Carlo',
+    desc: 'Valuacion de opciones europeas bajo movimiento browniano geometrico y calculo de Valor en Riesgo.',
+    tec: ['Python', 'NumPy', 'SciPy', 'Plotly'],
+    url: ''
   },
   {
-    id:'df', cat:'Aprendizaje automático', num:'03',
-    titulo:'Detección de Operaciones Fraudulentas',
-    desc:'Algoritmo para datos desbalanceados combinando detección de anomalías no supervisada con clasificación supervisada y optimización de umbral.',
-    tec:['Python','XGBoost','Scikit-learn','imbalanced-learn'],
-    pestañas:{
-      'Introducción':`<div class="prosa"><p>Con menos del <strong>0.2% de transacciones fraudulentas</strong>, los modelos convencionales fracasan al optimizar exactitud — un clasificador trivial que siempre predice "legítimo" alcanza 99.8% de exactitud y 0% de detección.</p><p>La solución combina tres enfoques complementarios:</p><ul><li><strong>Bosque de Aislamiento</strong> — detecta anomalías sin etiquetas de entrenamiento</li><li><strong>Sobremuestreo sintético (SMOTE)</strong> — genera muestras artificiales de la clase minoritaria</li><li><strong>XGBoost</strong> — clasificación supervisada con umbral optimizado</li></ul></div>`,
-      'Desarrollo':`<div class="prosa"><h3>Métricas relevantes</h3><div class="formula"><span class="formula-etq">Puntuación F1 (métrica objetivo)</span>F₁ = 2 · Precisión · Exhaustividad / (Precisión + Exhaustividad)</div><div class="formula"><span class="formula-etq">Bosque de Aislamiento — puntuación de anomalía</span>s(x,n) = 2^(−E[h(x)] / c(n))</div><p>El umbral de clasificación se selecciona maximizando F₁ sobre la curva Precisión-Exhaustividad, no usando 0.5 por defecto.</p></div>`,
-      'Código':`<div class="bloque-codigo"><div class="cod-cabeza"><span class="cod-lang">Python</span><button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button></div><pre><code class="language-python">from sklearn.ensemble import IsolationForest
-from imblearn.over_sampling import SMOTE
-from xgboost import XGBClassifier
-from sklearn.metrics import f1_score
-import numpy as np
-
-# 1. Señal de anomalía no supervisada
-bosque = IsolationForest(n_estimators=200, contamination=0.002, random_state=42)
-X_entrenamiento['bandera'] = (bosque.fit_predict(X_entrenamiento) == -1).astype(int)
-
-# 2. Sobremuestreo sintético
-X_res, y_res = SMOTE(sampling_strategy=0.1, random_state=42)\
-               .fit_resample(X_entrenamiento, y_entrenamiento)
-
-# 3. XGBoost con penalización de clase
-proporcion = y_res.value_counts()[0] / y_res.value_counts()[1]
-modelo = XGBClassifier(
-    n_estimators=300, max_depth=6, learning_rate=0.05,
-    scale_pos_weight=proporcion, eval_metric='aucpr', random_state=42
-)
-modelo.fit(X_res, y_res,
-           eval_set=[(X_val, y_val)], early_stopping_rounds=20)
-
-# 4. Umbral óptimo por F1 máximo
-probabilidades = modelo.predict_proba(X_prueba)[:,1]
-umbrales = np.linspace(0.01, 0.99, 200)
-umbral_optimo = umbrales[np.argmax(
-    [f1_score(y_prueba, probabilidades>=u) for u in umbrales]
-)]
-print(f"Umbral óptimo: {umbral_optimo:.3f}")</code></pre></div>`,
-      'Resultados':`<div class="prosa"><div class="resultados-grid"><div class="res-caja"><div class="res-etq">Puntuación F1</div><div class="res-val">0.89</div><div class="res-sub">clase fraude</div></div><div class="res-caja"><div class="res-etq">Exhaustividad</div><div class="res-val">91%</div><div class="res-sub">fraudes detectados</div></div><div class="res-caja"><div class="res-etq">Precisión</div><div class="res-val">87%</div><div class="res-sub">alertas correctas</div></div><div class="res-caja"><div class="res-etq">AUC-ROC</div><div class="res-val">0.98</div><div class="res-sub">discriminación</div></div></div><p>El umbral optimizado (0.38 frente a 0.5 por defecto) incrementó la exhaustividad en <strong>12 puntos porcentuales</strong> sin colapsar la precisión. El modelo supera en 23 puntos al clasificador logístico base.</p></div>`,
-      'Conclusiones':`<div class="prosa"><p>La clave fue tratar el problema como <strong>detección de anomalías antes que clasificación</strong> — la señal del Bosque de Aislamiento fue el atributo más importante en el modelo final.</p><h3>Aprendizajes de negocio</h3><ul><li>El costo asimétrico (falso negativo >> falso positivo) justifica reducir el umbral de decisión</li><li>La ingeniería de atributos aportó más valor que el algoritmo elegido</li><li>El monitoreo continuo de cambios en la distribución de datos es indispensable en producción</li></ul></div>`
-    }
+    id: 'df',
+    num: '03',
+    cat: 'Aprendizaje automatico',
+    titulo: 'Deteccion de Operaciones Fraudulentas',
+    desc: 'Algoritmo para datos desbalanceados combinando deteccion de anomalias no supervisada con clasificacion supervisada.',
+    tec: ['Python', 'XGBoost', 'Scikit-learn', 'imbalanced-learn'],
+    url: ''
   },
   {
-    id:'pv', cat:'Series de tiempo', num:'04',
-    titulo:'Pronóstico de Ventas en Retail',
-    desc:'Combinación de SARIMA y redes LSTM para predicción de ventas con estacionalidad múltiple y eventos comerciales.',
-    tec:['Python','TensorFlow','statsmodels','Pandas'],
-    pestañas:{
-      'Introducción':`<div class="prosa"><p>Proyecto aplicado a ventas diarias de calzado: predicción por artículo con horizonte de 30 días. El reto principal es capturar <strong>múltiples estacionalidades</strong> (semanal, anual) además del efecto de promociones y temporadas.</p><ul><li>Estacionalidad semanal y anual</li><li>Tendencia de crecimiento</li><li>Eventos especiales: Buen Fin, navidad, lanzamientos de temporada</li></ul></div>`,
-      'Desarrollo':`<div class="prosa"><h3>Descomposición de la serie</h3><div class="formula"><span class="formula-etq">Modelo aditivo</span>Y_t = T_t + S_t + R_t</div><h3>SARIMA estacional</h3><div class="formula"><span class="formula-etq">SARIMA(p,d,q)(P,D,Q)_s</span>Φ(Bˢ)φ(B)∇ˢᴰ∇ᵈYₜ = Θ(Bˢ)θ(B)εₜ</div><h3>Predicción combinada</h3><div class="formula"><span class="formula-etq">Conjunto ponderado</span>ŷ = α · SARIMA + (1−α) · LSTM</div><p>El parámetro α se optimizó minimizando el error absoluto medio en validación. Se encontró α = 0.4, dando mayor peso a la red neuronal para capturar los efectos no lineales de las promociones.</p></div>`,
-      'Código':`<div class="bloque-codigo"><div class="cod-cabeza"><span class="cod-lang">Python</span><button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button></div><pre><code class="language-python">import numpy as np
-from statsmodels.tsa.statespace.sarimax import SARIMAX
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense, Dropout
-
-def construir_lstm(ventana):
-    modelo = Sequential([
-        LSTM(64, input_shape=(ventana,1), return_sequences=True),
-        Dropout(0.2),
-        LSTM(32),
-        Dropout(0.2),
-        Dense(16, activation='relu'),
-        Dense(1)
-    ])
-    modelo.compile('adam', 'huber')
-    return modelo
-
-def crear_secuencias(datos, ventana):
-    X = np.array([datos[i:i+ventana] for i in range(len(datos)-ventana)])
-    y = datos[ventana:]
-    return X[..., np.newaxis], y
-
-# SARIMA con estacionalidad semanal
-sarima = SARIMAX(entrenamiento, order=(2,1,2),
-                 seasonal_order=(1,1,1,7)).fit(disp=False)
-
-# Red LSTM con ventana de 30 días
-X_ent, y_ent = crear_secuencias(datos_normalizados, 30)
-lstm = construir_lstm(30)
-lstm.fit(X_ent, y_ent, epochs=50, batch_size=32,
-         validation_split=0.1, verbose=0)
-
-# Conjunto ponderado optimizado
-alfa = 0.4
-prediccion = alfa * sarima.forecast(h) + (1-alfa) * lstm.predict(X_prueba)</code></pre></div>`,
-      'Resultados':`<div class="prosa"><div class="resultados-grid"><div class="res-caja"><div class="res-etq">Error porcentual medio</div><div class="res-val">4.8%</div><div class="res-sub">sobre datos de prueba</div></div><div class="res-caja"><div class="res-etq">Horizonte</div><div class="res-val">30 días</div><div class="res-sub">hacia adelante</div></div><div class="res-caja"><div class="res-etq">Mejora vs. ingenuo</div><div class="res-val">−38%</div><div class="res-sub">en error</div></div><div class="res-caja"><div class="res-etq">Mejora vs. SARIMA solo</div><div class="res-val">−15%</div><div class="res-sub">del conjunto</div></div></div><p>El conjunto reduce el error un <strong>38% frente al modelo de referencia</strong> y 15% frente a SARIMA solo. La red neuronal captura los picos de temporada que el modelo estadístico subestimaba.</p></div>`,
-      'Conclusiones':`<div class="prosa"><p>El modelo de predicción permite <strong>reducir el exceso de inventario</strong> y mejorar la disponibilidad de tallas clave en temporada alta.</p><h3>Impacto medido</h3><ul><li>Reducción ~18% en exceso de inventario estacional</li><li>Nivel de servicio mejorado de 91% a 96%</li><li>Proceso de pronóstico automatizado (antes manual, ~4 horas por semana)</li></ul></div>`
-    }
+    id: 'pv',
+    num: '04',
+    cat: 'Series de tiempo',
+    titulo: 'Pronostico de Ventas Retail',
+    desc: 'Conjunto SARIMA y redes LSTM para prediccion de ventas con estacionalidad multiple y eventos comerciales.',
+    tec: ['Python', 'TensorFlow', 'statsmodels', 'Pandas'],
+    url: ''
+  },
+  {
+    id: 'pib',
+    num: '05',
+    cat: 'Ciencia de datos aplicada',
+    titulo: 'Prediccion del PIB de Mexico',
+    desc: 'Analisis socioeconomico con datos del INEGI, limpieza, series de tiempo y redes neuronales para predecir el crecimiento economico.',
+    tec: ['R', 'Redes neuronales', 'Series de tiempo', 'INEGI'],
+    url: ''
   }
 ];
 
@@ -835,27 +715,31 @@ function abrirProyecto(url, id){
 }
 
 function renderizarProyectos(){
-  const lista = document.getElementById('lista-proy');
+  var lista = document.getElementById('lista-proy');
   lista.innerHTML = '';
   PROYECTOS.forEach(function(p){
-    const a = document.createElement('a');
+    var a = document.createElement('a');
     a.className = 'proy-fila';
     a.href = '#';
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      if(p.url){ window.location.href = p.url; } else { abrirModal(p.id); }
-    });
-    const tecHtml = p.tec.map(function(t){ return '<span class="proy-tech">'+t+'</span>'; }).join('');
+    (function(proyecto){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        if(proyecto.url){ window.location.href = proyecto.url; }
+        else { abrirModal(proyecto.id); }
+      });
+    })(p);
+    var tecHtml = '';
+    for(var i=0; i<p.tec.length; i++){
+      tecHtml += '<span class="proy-tech">' + p.tec[i] + '</span>';
+    }
     a.innerHTML =
-      '<div class="proy-num">'+p.num+'</div>'+
-      '<div>'+
-        '<div class="proy-cat">'+p.cat+'</div>'+
-        '<div class="proy-titulo">'+p.titulo+'</div>'+
-        '<div class="proy-desc">'+p.desc+'</div>'+
-      '</div>'+
-      '<div class="proy-meta">'+
-        '<div class="proy-tec">'+tecHtml+'</div>'+
-        '<div class="proy-flecha">↗</div>'+
+      '<div class="proy-num">' + p.num + '</div>' +
+      '<div class="proy-cat">' + p.cat + '</div>' +
+      '<div class="proy-titulo">' + p.titulo + '</div>' +
+      '<div class="proy-desc">' + p.desc + '</div>' +
+      '<div class="proy-meta">' +
+        '<div class="proy-tec">' + tecHtml + '</div>' +
+        '<div class="proy-flecha">↗</div>' +
       '</div>';
     lista.appendChild(a);
   });
