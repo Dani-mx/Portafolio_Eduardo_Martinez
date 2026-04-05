@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eduardo Daniel Martínez — Portfolio Cuantitativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<style>
+:root{
+  --crema:#FAF8F5;--blanco:#FFFFFF;--piedra:#F0EDE8;--corteza:#E8E2D9;
+  --tinta:#18160F;--tinta2:#3D3A31;--tinta3:#7A7569;--tinta4:#B8B2A7;
+  --terracota:#C4572A;--terr-lt:#E8896A;--terr-bg:#FBF1ED;--terr-bd:rgba(196,87,42,0.15);
+  --verde:#2A7C6F;--verde-bg:#EDF5F4;
+  --bd:rgba(0,0,0,0.07);--bd2:rgba(0,0,0,0.12);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--crema);color:var(--tinta);font-family:var(--sans);font-size:15px;line-height:1.6;overflow-x:hidden;}
+::selection{background:rgba(196,87,42,0.15);}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--crema);}
+::-webkit-scrollbar-thumb{background:var(--corteza);border-radius:2px;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 3.5rem;
+  background:rgba(250,248,245,0.93);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--bd);
+}
+.nav-marca{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-iniciales{
+  width:32px;height:32px;border-radius:6px;
+  background:var(--tinta);color:var(--crema);
+  font-family:var(--serif);font-size:13px;font-style:italic;
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-nombre{font-size:13px;font-weight:500;color:var(--tinta2);}
+.nav-enlaces{display:flex;align-items:center;gap:2rem;}
+.nav-enlaces a{font-size:11.5px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--tinta3);text-decoration:none;transition:color .2s;}
+.nav-enlaces a:hover{color:var(--terracota);}
+.nav-cta{
+  font-size:11.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  background:var(--tinta);color:var(--crema);
+  padding:8px 18px;border-radius:4px;text-decoration:none;transition:background .2s;
+}
+.nav-cta:hover{background:var(--terracota);}
+
+/* ── HERO ── */
+#inicio{
+  min-height:100vh;display:grid;
+  grid-template-columns:1fr 420px;
+  padding-top:56px;
+}
+.hero-izq{
+  padding:7rem 4rem 5rem 3.5rem;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.hero-der{
+  background:var(--tinta);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:4rem 3rem;position:relative;overflow:hidden;
+}
+/* Círculos decorativos del panel derecho */
+.hero-der::before{content:'';position:absolute;width:480px;height:480px;right:-140px;top:-100px;border-radius:50%;border:1px solid rgba(255,255,255,0.04);}
+.hero-der::after{content:'';position:absolute;width:280px;height:280px;right:-40px;top:60px;border-radius:50%;border:1px solid rgba(255,255,255,0.06);}
+
+.ceja{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:10.5px;font-weight:400;
+  letter-spacing:0.2em;text-transform:uppercase;color:var(--terracota);
+  margin-bottom:1.8rem;
+}
+.ceja-linea{width:28px;height:1px;background:var(--terr-lt);}
+
+h1.nombre{
+  font-family:var(--serif);
+  font-size:clamp(3rem,5.5vw,5rem);
+  font-weight:700;line-height:1.0;
+  color:var(--tinta);letter-spacing:-0.02em;
+  margin-bottom:0.5rem;
+}
+h1.nombre em{font-style:italic;font-weight:400;color:var(--terracota);}
+
+.subtitulo{
+  font-family:var(--serif);font-size:1.15rem;font-weight:400;font-style:italic;
+  color:var(--tinta3);margin-bottom:2.2rem;
+}
+.descripcion{
+  font-size:14.5px;font-weight:300;color:var(--tinta2);line-height:1.85;
+  max-width:500px;margin-bottom:3rem;
+}
+.descripcion strong{font-weight:600;color:var(--tinta);}
+
+.acciones{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-principal{
+  font-size:12.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;
+  background:var(--terracota);color:#fff;
+  padding:12px 24px;border-radius:4px;text-decoration:none;
+  transition:background .2s,transform .15s;display:inline-block;
+}
+.btn-principal:hover{background:#a84623;transform:translateY(-1px);}
+.btn-borde{
+  font-size:12.5px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;
+  background:transparent;color:var(--tinta2);
+  padding:12px 24px;border-radius:4px;border:1px solid var(--bd2);text-decoration:none;
+  transition:border-color .2s,color .2s;display:inline-block;
+}
+.btn-borde:hover{border-color:var(--tinta2);color:var(--tinta);}
+
+/* ── Ilustración ciencia de datos (SVG inline) ── */
+.ilustracion-wrap{
+  position:relative;z-index:1;
+  width:100%;max-width:340px;
+  margin-bottom:2.5rem;
+}
+.ilustracion-wrap svg{width:100%;height:auto;}
+
+/* Estadísticas debajo de la ilustración */
+.estadisticas{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:8px;overflow:hidden;
+  width:100%;max-width:340px;
+  position:relative;z-index:1;
+}
+.est-caja{padding:1.2rem 1.3rem;background:rgba(255,255,255,0.03);transition:background .2s;}
+.est-caja:hover{background:rgba(255,255,255,0.06);}
+.est-n{font-family:var(--serif);font-size:2.4rem;font-weight:700;font-style:italic;color:#fff;line-height:1;margin-bottom:.3rem;}
+.est-n span{font-size:1.2rem;font-style:normal;}
+.est-txt{font-size:11px;font-weight:400;color:rgba(255,255,255,0.4);letter-spacing:0.04em;}
+
+/* ── BANDA HERRAMIENTAS ── */
+.banda-herr{
+  background:var(--piedra);padding:1.8rem 3.5rem;
+  display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;
+  border-bottom:1px solid var(--bd);
+}
+.banda-etiqueta{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--tinta3);white-space:nowrap;flex-shrink:0;
+}
+.herr-lista{display:flex;flex-wrap:wrap;gap:8px;}
+.herr-pastilla{
+  font-size:12px;font-weight:500;color:var(--tinta2);
+  background:var(--blanco);border:1px solid var(--bd2);
+  padding:5px 14px;border-radius:100px;
+  display:flex;align-items:center;gap:6px;
+}
+.herr-punto{width:6px;height:6px;border-radius:50%;background:var(--verde);flex-shrink:0;}
+
+/* ── SECCIÓN BASE ── */
+section{padding:6rem 3.5rem;}
+.enc-sec{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:3.5rem;}
+.enc-num{font-family:var(--mono);font-size:10px;color:var(--tinta4);letter-spacing:0.2em;}
+.enc-titulo{font-family:var(--serif);font-size:2.2rem;font-weight:700;color:var(--tinta);letter-spacing:-0.02em;}
+.enc-titulo em{font-style:italic;color:var(--terracota);}
+.enc-linea{flex:1;height:1px;background:var(--bd2);}
+
+/* ── QUÉ HAGO ── */
+#actividades{background:var(--blanco);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);}
+.act-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);}
+.act-tarjeta{background:var(--blanco);padding:2.5rem;transition:background .2s;}
+.act-tarjeta:hover{background:var(--crema);}
+.act-icono{
+  width:40px;height:40px;border-radius:8px;
+  background:var(--terr-bg);border:1px solid var(--terr-bd);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;margin-bottom:1.4rem;
+}
+.act-titulo{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--tinta);margin-bottom:.7rem;letter-spacing:-0.01em;}
+.act-desc{font-size:13px;font-weight:300;color:var(--tinta2);line-height:1.8;margin-bottom:1.2rem;}
+.act-etiquetas{display:flex;flex-wrap:wrap;gap:6px;}
+.act-etiqueta{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:0.06em;
+  color:var(--terracota);background:var(--terr-bg);border:1px solid var(--terr-bd);
+  padding:3px 9px;border-radius:3px;
+}
+
+/* ── PROYECTOS ── */
+#proyectos{background:var(--crema);}
+.lista-proyectos{display:flex;flex-direction:column;gap:1px;background:var(--bd);}
+.proy-fila{
+  background:var(--crema);
+  display:grid;grid-template-columns:80px 1fr auto;
+  align-items:center;gap:2rem;padding:2rem 2.5rem;
+  cursor:pointer;text-decoration:none;
+  transition:background .2s;
+}
+.proy-fila:hover{background:var(--blanco);}
+.proy-num{
+  font-family:var(--serif);font-size:2.5rem;font-weight:700;font-style:italic;
+  color:var(--corteza);line-height:1;transition:color .2s;
+}
+.proy-fila:hover .proy-num{color:var(--terr-lt);}
+.proy-cat{font-family:var(--mono);font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--terracota);margin-bottom:.35rem;}
+.proy-titulo{font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--tinta);letter-spacing:-0.01em;margin-bottom:.35rem;}
+.proy-desc{font-size:13px;font-weight:300;color:var(--tinta3);line-height:1.6;}
+.proy-meta{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+.proy-tec{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;}
+.proy-tech{font-family:var(--mono);font-size:9px;color:var(--tinta3);background:var(--piedra);border:1px solid var(--bd2);padding:3px 8px;border-radius:3px;}
+.proy-flecha{font-size:20px;color:var(--corteza);transition:color .2s,transform .2s;}
+.proy-fila:hover .proy-flecha{color:var(--terracota);transform:translate(3px,-3px);}
+
+/* ── PERFIL ── */
+#perfil{background:var(--blanco);border-top:1px solid var(--bd);}
+.perfil-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--bd);}
+.perfil-col{background:var(--blanco);padding:2.5rem;}
+.col-etiqueta{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--terracota);margin-bottom:1.4rem;
+  display:flex;align-items:center;gap:10px;
+}
+.col-etiqueta::after{content:'';flex:1;height:1px;background:var(--terr-bd);}
+
+.edu-entrada{padding:1rem 0;border-bottom:1px solid var(--bd);}
+.edu-entrada:last-child{border-bottom:none;}
+.edu-grado{font-size:13.5px;font-weight:600;color:var(--tinta);margin-bottom:.2rem;}
+.edu-inst{font-size:12.5px;font-weight:400;color:var(--verde);margin-bottom:.15rem;}
+.edu-fechas{font-family:var(--mono);font-size:10.5px;color:var(--tinta3);}
+
+.interes-wrap{display:flex;flex-wrap:wrap;gap:7px;}
+.interes-tag{
+  font-size:12px;font-weight:400;color:var(--tinta2);
+  background:var(--crema);border:1px solid var(--bd2);
+  padding:5px 13px;border-radius:100px;cursor:default;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.interes-tag:hover{background:var(--terr-bg);border-color:var(--terr-bd);color:var(--terracota);}
+
+.habilidad-fila{display:flex;align-items:center;justify-content:space-between;padding:.65rem 0;border-bottom:1px solid var(--bd);}
+.habilidad-fila:last-child{border-bottom:none;}
+.habilidad-nombre{font-size:13px;font-weight:400;color:var(--tinta2);}
+.barra-wrap{width:80px;height:4px;background:var(--piedra);border-radius:2px;overflow:hidden;}
+.barra{height:100%;background:var(--tinta);border-radius:2px;}
+.barra.destacada{background:var(--terracota);}
+
+/* ── CONTACTO ── */
+#contacto{
+  background:var(--tinta);padding:5rem 3.5rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+}
+.ct-ceja{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1.2rem;}
+.ct-titulo{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:700;font-style:italic;color:#fff;line-height:1.1;letter-spacing:-0.02em;margin-bottom:2rem;}
+.ct-titulo span{color:var(--terr-lt);}
+.ct-info{display:flex;flex-direction:column;gap:1.2rem;}
+.ci-fila{display:flex;align-items:center;gap:14px;}
+.ci-icono{width:36px;height:36px;border-radius:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,0.5);flex-shrink:0;}
+.ci-val{font-size:14px;font-weight:300;color:rgba(255,255,255,0.7);}
+.ci-val a{color:rgba(255,255,255,0.7);text-decoration:none;}
+.ci-val a:hover{color:var(--terr-lt);}
+
+footer{background:var(--tinta);border-top:1px solid rgba(255,255,255,0.05);padding:1.5rem 3.5rem;display:flex;justify-content:space-between;align-items:center;}
+.pie-nombre{font-family:var(--serif);font-size:1rem;font-style:italic;color:rgba(255,255,255,0.35);}
+.pie-nota{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:0.08em;}
+
+/* ── MODAL ── */
+.modal-fondo{position:fixed;inset:0;z-index:500;background:rgba(24,22,15,0.6);backdrop-filter:blur(8px);display:flex;align-items:flex-start;justify-content:center;padding:3rem 1.5rem;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .3s;}
+.modal-fondo.abierto{opacity:1;pointer-events:all;}
+.modal{width:100%;max-width:860px;background:var(--blanco);border-radius:12px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,0.2);transform:translateY(20px);transition:transform .3s;}
+.modal-fondo.abierto .modal{transform:translateY(0);}
+.modal-cabeza{display:grid;grid-template-columns:1fr auto;gap:1.5rem;align-items:start;padding:2.5rem 2.8rem 0;}
+.modal-cat{font-family:var(--mono);font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracota);margin-bottom:.6rem;}
+.modal-titulo{font-family:var(--serif);font-size:1.9rem;font-weight:700;color:var(--tinta);letter-spacing:-0.02em;}
+.modal-cerrar{width:32px;height:32px;border-radius:6px;background:var(--piedra);border:none;cursor:pointer;color:var(--tinta3);font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s,color .15s;}
+.modal-cerrar:hover{background:var(--terr-bg);color:var(--terracota);}
+.modal-pestañas{display:flex;padding:0 2.8rem;margin-top:1.6rem;border-bottom:1px solid var(--bd);overflow-x:auto;}
+.mp-btn{font-size:12px;font-weight:500;letter-spacing:0.05em;color:var(--tinta3);background:none;border:none;padding:.8rem 1.3rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .2s,border-color .2s;}
+.mp-btn.activo{color:var(--terracota);border-bottom-color:var(--terracota);}
+.mp-btn:hover:not(.activo){color:var(--tinta);}
+.mp-panel{display:none;padding:2.5rem 2.8rem;animation:aparecer .2s;}
+.mp-panel.activo{display:block;}
+@keyframes aparecer{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* Prosa */
+.prosa h3{font-family:var(--serif);font-size:1.25rem;font-weight:700;color:var(--tinta);margin:2rem 0 .7rem;letter-spacing:-0.01em;}
+.prosa h3:first-child{margin-top:0;}
+.prosa p{font-size:13.5px;font-weight:300;color:var(--tinta2);line-height:1.85;margin-bottom:1rem;}
+.prosa strong{font-weight:600;color:var(--tinta);}
+.prosa ul{padding-left:1.3rem;margin-bottom:1rem;}
+.prosa li{font-size:13.5px;font-weight:300;color:var(--tinta2);line-height:1.75;margin-bottom:.4rem;}
+
+.formula{background:var(--terr-bg);border:1px solid var(--terr-bd);border-left:3px solid var(--terr-lt);padding:1.1rem 1.7rem;border-radius:3px;margin:1.3rem 0;font-family:var(--mono);font-size:13px;color:var(--terracota);line-height:2;overflow-x:auto;}
+.formula-etq{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--terr-lt);display:block;margin-bottom:.3rem;}
+
+.bloque-codigo{margin:1.3rem 0;border-radius:4px;overflow:hidden;border:1px solid var(--bd2);}
+.cod-cabeza{background:var(--piedra);padding:.5rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bd);}
+.cod-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--tinta3);text-transform:uppercase;}
+.btn-copiar{font-family:var(--mono);font-size:9.5px;color:var(--tinta3);background:none;border:1px solid var(--bd2);padding:3px 9px;border-radius:3px;cursor:pointer;transition:color .2s,border-color .2s;}
+.btn-copiar:hover{color:var(--terracota);border-color:var(--terr-bd);}
+.bloque-codigo pre{margin:0;border-radius:0;}
+.bloque-codigo pre code.hljs{background:#FAFAF8;padding:1.3rem 1.5rem;font-size:12.5px;font-family:var(--mono);}
+
+.resultados-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:1.3rem 0;}
+.res-caja{background:var(--piedra);border:1px solid var(--bd);border-radius:4px;padding:1.1rem 1.2rem;}
+.res-etq{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta3);margin-bottom:.4rem;}
+.res-val{font-family:var(--serif);font-size:1.7rem;font-weight:700;color:var(--terracota);line-height:1;margin-bottom:.15rem;}
+.res-sub{font-size:10.5px;font-weight:300;color:var(--tinta3);font-family:var(--mono);}
+
+/* Responsive */
+@media(max-width:1024px){
+  #inicio{grid-template-columns:1fr;}
+  .hero-der{display:none;}
+  nav{padding:0 1.5rem;}.nav-enlaces{display:none;}
+  section{padding:4rem 1.5rem;}
+  .act-grid,.perfil-grid{grid-template-columns:1fr;}
+  #contacto{grid-template-columns:1fr;}
+  .banda-herr{padding:1.5rem;}
+  footer{padding:1.5rem;flex-direction:column;gap:.8rem;}
+  .proy-fila{grid-template-columns:50px 1fr auto;gap:1rem;padding:1.5rem;}
+  .proy-num{font-size:1.8rem;}
+  .modal-cabeza{padding:1.5rem 1.5rem 0;}
+  .modal-pestañas{padding:0 1.5rem;}
+  .mp-panel{padding:1.8rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#inicio" class="nav-marca">
+    <div class="nav-iniciales">ED</div>
+    <span class="nav-nombre">Eduardo D. Martínez</span>
+  </a>
+  <div class="nav-enlaces">
+    <a href="#actividades">Actividades</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#perfil">Perfil</a>
+    <a href="/cdn-cgi/l/email-protection#284d4c5d495a4c47064c4946414d4406455c525a4c52684f45494144064b4745" class="nav-cta">Contacto</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+
+  <!-- Izquierda -->
+  <div class="hero-izq">
+    <div class="ceja"><span class="ceja-linea"></span>Analista de Datos · Matemático Aplicado</div>
+    <h1 class="nombre">Eduardo<br><em>Daniel</em><br>Martínez.</h1>
+    <p class="subtitulo">Matemático aplicado construyendo inteligencia de datos</p>
+    <p class="descripcion">
+      Más de <strong>3 años</strong> convirtiendo datos en decisiones de negocio —
+      pronósticos de ventas, control de inventarios y sistemas analíticos de extremo a extremo.
+      Actualmente cursando <strong>Maestría en Ciencias Computacionales y Matemáticas</strong>,
+      con enfoque en finanzas cuantitativas y aprendizaje automático.
+    </p>
+    <div class="acciones">
+      <a href="/cdn-cgi/l/email-protection#ee8b8a9b8f9c8a81c08a8f80878b82c0839a949c8a94ae89838f8782c08d8183" class="btn-principal">Contáctame</a>
+      <a href="#proyectos" class="btn-borde">Ver proyectos</a>
+    </div>
+  </div>
+
+  <!-- Derecha: ilustración + estadísticas -->
+  <div class="hero-der">
+
+    <!-- Ilustración SVG: ciencia de datos -->
+    <div class="ilustracion-wrap">
+      <svg viewBox="0 0 340 280" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gAzul" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4A9ECC" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#2A7C6F" stop-opacity="0.7"/>
+          </linearGradient>
+          <linearGradient id="gTerr" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E8896A" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="#C4572A" stop-opacity="0.8"/>
+          </linearGradient>
+          <linearGradient id="gVerde" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#5BB5A0" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#2A7C6F" stop-opacity="0.7"/>
+          </linearGradient>
+          <linearGradient id="gGris" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.5)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0.15)"/>
+          </linearGradient>
+          <filter id="brillo">
+            <feGaussianBlur stdDeviation="3" result="b"/>
+            <feComposite in="SourceGraphic" in2="b" operator="over"/>
+          </filter>
+        </defs>
+
+        <!-- Fondo sutil -->
+        <rect width="340" height="280" fill="none"/>
+
+        <!-- Ejes del gráfico de barras -->
+        <line x1="30" y1="20" x2="30" y2="200" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+        <line x1="28" y1="200" x2="320" y2="200" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+        <!-- Líneas de cuadrícula horizontales -->
+        <line x1="30" y1="50" x2="318" y2="50" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="30" y1="100" x2="318" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="30" y1="150" x2="318" y2="150" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
+
+        <!-- Barras del histograma -->
+        <rect x="45"  y="140" width="28" height="60" rx="3" fill="url(#gGris)"/>
+        <rect x="85"  y="110" width="28" height="90" rx="3" fill="url(#gAzul)"/>
+        <rect x="125" y="70"  width="28" height="130" rx="3" fill="url(#gTerr)"/>
+        <rect x="165" y="50"  width="28" height="150" rx="3" fill="url(#gTerr)"/>
+        <rect x="205" y="80"  width="28" height="120" rx="3" fill="url(#gAzul)"/>
+        <rect x="245" y="120" width="28" height="80"  rx="3" fill="url(#gVerde)"/>
+        <rect x="285" y="155" width="28" height="45"  rx="3" fill="url(#gGris)"/>
+
+        <!-- Curva de distribución normal -->
+        <path d="M45,195 C70,195 80,90 100,75 C120,60 130,40 179,35 C228,30 240,60 260,75 C280,90 295,195 315,195"
+              fill="none" stroke="rgba(232,137,106,0.6)" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- Puntos sobre la curva -->
+        <circle cx="100" cy="75" r="3" fill="#E8896A" opacity="0.8"/>
+        <circle cx="140" cy="48" r="3" fill="#E8896A" opacity="0.9"/>
+        <circle cx="179" cy="35" r="4" fill="#E8896A"/>
+        <circle cx="218" cy="48" r="3" fill="#E8896A" opacity="0.9"/>
+        <circle cx="258" cy="75" r="3" fill="#E8896A" opacity="0.8"/>
+
+        <!-- Línea de tendencia (regresión) -->
+        <line x1="45" y1="175" x2="315" y2="75" stroke="rgba(91,181,160,0.5)" stroke-width="1.5" stroke-dasharray="6 3"/>
+
+        <!-- Puntos de dispersión -->
+        <circle cx="60"  cy="170" r="3" fill="rgba(91,181,160,0.7)"/>
+        <circle cx="80"  cy="158" r="3" fill="rgba(91,181,160,0.7)"/>
+        <circle cx="105" cy="148" r="3" fill="rgba(91,181,160,0.7)"/>
+        <circle cx="130" cy="135" r="3" fill="rgba(91,181,160,0.7)"/>
+        <circle cx="150" cy="128" r="3" fill="rgba(91,181,160,0.7)"/>
+        <circle cx="175" cy="115" r="3" fill="rgba(91,181,160,0.7)"/>
+        <circle cx="200" cy="108" r="3" fill="rgba(91,181,160,0.7)"/>
+        <circle cx="225" cy="98"  r="3" fill="rgba(91,181,160,0.7)"/>
+        <circle cx="255" cy="88"  r="3" fill="rgba(91,181,160,0.7)"/>
+        <circle cx="280" cy="80"  r="3" fill="rgba(91,181,160,0.7)"/>
+        <circle cx="300" cy="78"  r="3" fill="rgba(91,181,160,0.7)"/>
+        <!-- outliers -->
+        <circle cx="90"  cy="130" r="2.5" fill="rgba(91,181,160,0.45)"/>
+        <circle cx="170" cy="140" r="2.5" fill="rgba(91,181,160,0.45)"/>
+        <circle cx="240" cy="70"  r="2.5" fill="rgba(91,181,160,0.45)"/>
+
+        <!-- Etiquetas del eje Y -->
+        <text x="22" y="204" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="end">0</text>
+        <text x="22" y="154" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="end">25</text>
+        <text x="22" y="104" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="end">50</text>
+        <text x="22" y="54"  font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="end">75</text>
+
+        <!-- Leyenda mini -->
+        <rect x="30" y="220" width="10" height="4" rx="2" fill="rgba(232,137,106,0.7)"/>
+        <text x="44" y="227" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.35)">Distribución</text>
+        <rect x="130" y="220" width="10" height="4" rx="2" fill="rgba(91,181,160,0.7)"/>
+        <text x="144" y="227" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.35)">Regresión</text>
+        <rect x="225" y="220" width="10" height="4" rx="2" fill="rgba(255,255,255,0.2)"/>
+        <text x="239" y="227" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.35)">Frecuencia</text>
+
+        <!-- Título del gráfico -->
+        <text x="175" y="265" font-family="Playfair Display,serif" font-size="11" font-style="italic" fill="rgba(255,255,255,0.2)" text-anchor="middle">Análisis exploratorio de datos</text>
+      </svg>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="estadisticas">
+      <div class="est-caja">
+        <div class="est-n">3<span>+</span></div>
+        <div class="est-txt">años de experiencia</div>
+      </div>
+      <div class="est-caja">
+        <div class="est-n">4</div>
+        <div class="est-txt">proyectos en portfolio</div>
+      </div>
+      <div class="est-caja">
+        <div class="est-n">8<span>+</span></div>
+        <div class="est-txt">herramientas</div>
+      </div>
+      <div class="est-caja">
+        <div class="est-n">2</div>
+        <div class="est-txt">grados académicos</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BANDA HERRAMIENTAS -->
+<div class="banda-herr">
+  <span class="banda-etiqueta">Uso diario →</span>
+  <div class="herr-lista">
+    <span class="herr-pastilla"><span class="herr-punto"></span>Python</span>
+    <span class="herr-pastilla"><span class="herr-punto"></span>SQL / MySQL</span>
+    <span class="herr-pastilla"><span class="herr-punto"></span>R</span>
+    <span class="herr-pastilla"><span class="herr-punto"></span>Power BI</span>
+    <span class="herr-pastilla"><span class="herr-punto"></span>Looker Studio</span>
+    <span class="herr-pastilla"><span class="herr-punto"></span>Supabase</span>
+    <span class="herr-pastilla"><span class="herr-punto"></span>Shopify</span>
+    <span class="herr-pastilla"><span class="herr-punto"></span>Google Analytics</span>
+    <span class="herr-pastilla"><span class="herr-punto"></span>Excel</span>
+  </div>
+</div>
+
+<!-- ACTIVIDADES -->
+<section id="actividades">
+  <div class="enc-sec">
+    <span class="enc-num">01</span>
+    <h2 class="enc-titulo">Lo que hago <em>hoy</em></h2>
+    <div class="enc-linea"></div>
+  </div>
+  <div class="act-grid">
+    <div class="act-tarjeta">
+      <div class="act-icono">📊</div>
+      <div class="act-titulo">Analítica y Reportes</div>
+      <div class="act-desc">Construcción y mantenimiento de tableros de ventas, inventarios y métricas clave. Reportes semanales y mensuales automatizados para apoyar la toma de decisiones.</div>
+      <div class="act-etiquetas"><span class="act-etiqueta">Power BI</span><span class="act-etiqueta">Looker Studio</span><span class="act-etiqueta">SQL</span></div>
+    </div>
+    <div class="act-tarjeta">
+      <div class="act-icono">🗄️</div>
+      <div class="act-titulo">Ingeniería de Datos</div>
+      <div class="act-desc">Diseño de bases de datos relacionales, procesos de extracción y limpieza, sincronización entre sistemas y gestión de plataformas de comercio electrónico.</div>
+      <div class="act-etiquetas"><span class="act-etiqueta">MySQL</span><span class="act-etiqueta">Supabase</span><span class="act-etiqueta">Python</span></div>
+    </div>
+    <div class="act-tarjeta">
+      <div class="act-icono">📈</div>
+      <div class="act-titulo">Pronósticos de Ventas</div>
+      <div class="act-desc">Modelos de predicción para planificación de inventario en retail, integrando series de tiempo con estacionalidad, tendencias y eventos comerciales.</div>
+      <div class="act-etiquetas"><span class="act-etiqueta">Series de tiempo</span><span class="act-etiqueta">R</span><span class="act-etiqueta">Python</span></div>
+    </div>
+    <div class="act-tarjeta">
+      <div class="act-icono">🧮</div>
+      <div class="act-titulo">Modelos Cuantitativos</div>
+      <div class="act-desc">Desarrollo de proyectos en finanzas cuantitativas: optimización de portafolios, simulación estocástica, valuación de derivados y análisis de riesgo.</div>
+      <div class="act-etiquetas"><span class="act-etiqueta">Finanzas cuant.</span><span class="act-etiqueta">Optimización</span><span class="act-etiqueta">Procesos estocásticos</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <div class="enc-sec">
+    <span class="enc-num">02</span>
+    <h2 class="enc-titulo">Proyectos <em>cuantitativos</em></h2>
+    <div class="enc-linea"></div>
+  </div>
+  <div class="lista-proyectos" id="lista-proy"></div>
+</section>
+
+<!-- PERFIL -->
+<section id="perfil">
+  <div class="enc-sec">
+    <span class="enc-num">03</span>
+    <h2 class="enc-titulo">Perfil <em>académico</em></h2>
+    <div class="enc-linea"></div>
+  </div>
+  <div class="perfil-grid">
+
+    <div class="perfil-col">
+      <div class="col-etiqueta">Formación</div>
+      <div class="edu-entrada">
+        <div class="edu-grado">Maestría en Ciencias Computacionales y Matemáticas</div>
+        <div class="edu-inst">UNIR — Universidad Internacional de La Rioja</div>
+        <div class="edu-fechas">Sep 2024 – En curso · En línea</div>
+      </div>
+      <div class="edu-entrada">
+        <div class="edu-grado">Licenciatura en Matemáticas Aplicadas</div>
+        <div class="edu-inst">Universidad Autónoma Metropolitana — Cuajimalpa</div>
+        <div class="edu-fechas">Sep 2016 – Dic 2021 · CDMX</div>
+      </div>
+      <div class="edu-entrada">
+        <div class="edu-grado">Técnico en Instalaciones y Mantenimiento Eléctrico</div>
+        <div class="edu-inst">CECyT 4 Lázaro Cárdenas</div>
+        <div class="edu-fechas">Ago 2010 – Jun 2013 · CDMX</div>
+      </div>
+      <div style="margin-top:2rem;">
+        <div class="col-etiqueta">Idiomas</div>
+        <div class="habilidad-fila"><span class="habilidad-nombre">Español</span><div class="barra-wrap"><div class="barra destacada" style="width:100%"></div></div></div>
+        <div class="habilidad-fila"><span class="habilidad-nombre">Inglés</span><div class="barra-wrap"><div class="barra" style="width:55%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="perfil-col">
+      <div class="col-etiqueta">Áreas de interés</div>
+      <div class="interes-wrap">
+        <span class="interes-tag">Series de tiempo</span>
+        <span class="interes-tag">Finanzas</span>
+        <span class="interes-tag">Aprendizaje automático</span>
+        <span class="interes-tag">Portafolios de inversión</span>
+        <span class="interes-tag">Matemáticas financieras</span>
+        <span class="interes-tag">Ciencia de datos</span>
+        <span class="interes-tag">Pronósticos</span>
+        <span class="interes-tag">Analítica de mercadotecnia</span>
+        <span class="interes-tag">Procesos estocásticos</span>
+        <span class="interes-tag">Derivados financieros</span>
+        <span class="interes-tag">Redes neuronales</span>
+        <span class="interes-tag">Optimización</span>
+      </div>
+    </div>
+
+    <div class="perfil-col">
+      <div class="col-etiqueta">Habilidades técnicas</div>
+      <div class="habilidad-fila"><span class="habilidad-nombre">Python</span><div class="barra-wrap"><div class="barra destacada" style="width:90%"></div></div></div>
+      <div class="habilidad-fila"><span class="habilidad-nombre">R</span><div class="barra-wrap"><div class="barra destacada" style="width:90%"></div></div></div>
+      <div class="habilidad-fila"><span class="habilidad-nombre">SQL</span><div class="barra-wrap"><div class="barra destacada" style="width:88%"></div></div></div>
+      <div class="habilidad-fila"><span class="habilidad-nombre">Power BI</span><div class="barra-wrap"><div class="barra" style="width:82%"></div></div></div>
+      <div class="habilidad-fila"><span class="habilidad-nombre">Looker Studio</span><div class="barra-wrap"><div class="barra" style="width:82%"></div></div></div>
+      <div class="habilidad-fila"><span class="habilidad-nombre">Excel</span><div class="barra-wrap"><div class="barra" style="width:85%"></div></div></div>
+      <div class="habilidad-fila"><span class="habilidad-nombre">Shopify</span><div class="barra-wrap"><div class="barra" style="width:75%"></div></div></div>
+      <div class="habilidad-fila"><span class="habilidad-nombre">Google Analytics</span><div class="barra-wrap"><div class="barra" style="width:70%"></div></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<div style="background:var(--tinta);padding:5rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+  <div>
+    <div class="ct-ceja">¿Tienes un proyecto o vacante?</div>
+    <div class="ct-titulo">Hablemos <span>sobre datos.</span></div>
+    <div class="acciones">
+      <a href="/cdn-cgi/l/email-protection#1d7879687c6f797233797c73747871337069676f79675d7a707c7471337e7270" class="btn-principal">Enviar correo</a>
+    </div>
+  </div>
+  <div class="ct-info">
+    <div class="ci-fila">
+      <div class="ci-icono">✉</div>
+      <div class="ci-val"><a href="/cdn-cgi/l/email-protection#4c2928392d3e282362282d22252920622138363e28360c2b212d2520622f2321"><span class="__cf_email__" data-cfemail="85e0e1f0e4f7e1eaabe1e4ebece0e9abe8f1fff7e1ffc5e2e8e4ece9abe6eae8">[email&#160;protected]</span></a></div>
+    </div>
+    <div class="ci-fila">
+      <div class="ci-icono">✆</div>
+      <div class="ci-val">55-1649-9822</div>
+    </div>
+    <div class="ci-fila">
+      <div class="ci-icono">◎</div>
+      <div class="ci-val">Ciudad de México, México</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="pie-nombre">Eduardo Daniel Martínez Rodríguez</span>
+  <span class="pie-nota">Portfolio cuantitativo · 2025</span>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-fondo" id="modal-fondo" onclick="cerrarFondo(event)">
+  <div class="modal">
+    <div class="modal-cabeza">
+      <div><div class="modal-cat" id="m-cat"></div><div class="modal-titulo" id="m-titulo"></div></div>
+      <button class="modal-cerrar" onclick="cerrarModal()">✕</button>
+    </div>
+    <div class="modal-pestañas" id="m-pestañas"></div>
+    <div id="m-cuerpo"></div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const PROYECTOS = [
+  {
+    id:'op', cat:'Finanzas cuantitativas', num:'01', url:'proyectos/optimizacion_portafolios.html',
+    titulo:'Optimización de Portafolios',
+    desc:'Frontera eficiente de Markowitz, máximo índice de Sharpe y análisis de correlaciones sobre datos históricos reales.',
+    tec:['Python','NumPy','SciPy','Matplotlib'],
+    pestañas:{
+      'Introducción':`<div class="prosa"><p>La <strong>teoría moderna de portafolios</strong> de Harry Markowitz (1952) establece que existe un conjunto de portafolios eficientes que maximizan el retorno para cada nivel de riesgo. Este proyecto construye esa frontera y encuentra el portafolio de máximo índice de Sharpe.</p><h3>Supuestos del modelo</h3><ul><li>Los retornos se distribuyen normalmente</li><li>Los inversionistas son aversos al riesgo</li><li>Sin costos de transacción ni impuestos</li><li>Horizonte de un período</li></ul></div>`,
+      'Desarrollo':`<div class="prosa"><h3>Formulación matemática</h3><p>Sea <strong>w</strong> el vector de pesos del portafolio. El problema de optimización se define como:</p><div class="formula"><span class="formula-etq">Retorno esperado del portafolio</span>μ_p = wᵀ μ</div><div class="formula"><span class="formula-etq">Varianza del portafolio</span>σ²_p = wᵀ Σ w</div><div class="formula"><span class="formula-etq">Índice de Sharpe (maximizar)</span>S = (μ_p − r_f) / σ_p</div><p>Sujeto a <strong>Σwᵢ = 1</strong> (los pesos suman 1) y <strong>wᵢ ≥ 0</strong> (sin posiciones cortas).</p></div>`,
+      'Código':`<div class="bloque-codigo"><div class="cod-cabeza"><span class="cod-lang">Python</span><button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button></div><pre><code class="language-python">import numpy as np
+from scipy.optimize import minimize
+
+def estadisticas_portafolio(pesos, retornos, covarianza, rf=0.02):
+    mu    = pesos @ retornos
+    sigma = np.sqrt(pesos @ covarianza @ pesos)
+    sharpe = (mu - rf) / sigma
+    return mu, sigma, sharpe
+
+def max_sharpe(retornos, covarianza, rf=0.02):
+    n  = len(retornos)
+    w0 = np.ones(n) / n
+    restricciones = {'type': 'eq', 'fun': lambda w: w.sum() - 1}
+    limites = [(0, 1)] * n
+    resultado = minimize(
+        lambda w: -estadisticas_portafolio(w, retornos, covarianza, rf)[2],
+        w0, method='SLSQP',
+        bounds=limites, constraints=restricciones
+    )
+    return resultado.x
+
+# Simulación de 10,000 portafolios para trazar la frontera
+retornos_sim, vols_sim = [], []
+for _ in range(10_000):
+    w = np.random.dirichlet(np.ones(n_activos))
+    r, s, _ = estadisticas_portafolio(w, ret_medios, cov_matriz)
+    retornos_sim.append(r)
+    vols_sim.append(s)
+
+pesos_opt = max_sharpe(ret_medios, cov_matriz)
+mu_opt, sigma_opt, sharpe_opt = estadisticas_portafolio(pesos_opt, ret_medios, cov_matriz)
+print(f"Índice de Sharpe óptimo: {sharpe_opt:.4f}")</code></pre></div>`,
+      'Resultados':`<div class="prosa"><div class="resultados-grid"><div class="res-caja"><div class="res-etq">Índice de Sharpe</div><div class="res-val">1.42</div><div class="res-sub">portafolio óptimo</div></div><div class="res-caja"><div class="res-etq">Retorno anual</div><div class="res-val">18.3%</div><div class="res-sub">esperado</div></div><div class="res-caja"><div class="res-etq">Volatilidad</div><div class="res-val">11.5%</div><div class="res-sub">anualizada</div></div><div class="res-caja"><div class="res-etq">Activos</div><div class="res-val">8</div><div class="res-sub">en cartera</div></div></div><p>El portafolio óptimo supera en <strong>63% el índice de Sharpe del benchmark</strong>. Tres activos concentran el 60% del peso, mientras los activos altamente correlacionados quedan con pesos cercanos a cero.</p></div>`,
+      'Conclusiones':`<div class="prosa"><p>La diversificación según Markowitz reduce el riesgo sin sacrificar retorno esperado. Sin embargo, el modelo es sensible a la estimación de medias y covarianzas — en producción se recomienda el estimador robusto <strong>Ledoit-Wolf</strong>.</p><h3>Extensiones planificadas</h3><ul><li>Restricciones de caída máxima (drawdown)</li><li>Rebalanceo dinámico con ventana rodante</li><li>Comparación con el modelo Black-Litterman</li></ul></div>`
+    }
+  },
+  {
+    id:'mc', cat:'Simulación estocástica', num:'02',
+    titulo:'Simulación Monte Carlo',
+    desc:'Valuación de opciones europeas por simulación y cálculo de Valor en Riesgo bajo movimiento browniano geométrico.',
+    tec:['Python','NumPy','SciPy','Plotly'],
+    pestañas:{
+      'Introducción':`<div class="prosa"><p>La <strong>simulación Monte Carlo</strong> aproxima distribuciones de resultados mediante miles de trayectorias aleatorias. En finanzas es la herramienta estándar para valorar derivados sin solución cerrada y cuantificar el riesgo de cola.</p><p>Aplicaciones de este proyecto:</p><ul><li>Valuación de opciones europeas de compra y venta</li><li>Valor en Riesgo (VaR) al 95% y 99%</li><li>Pérdida Esperada en caso de incumplimiento (CVaR)</li></ul></div>`,
+      'Desarrollo':`<div class="prosa"><h3>Movimiento browniano geométrico</h3><div class="formula"><span class="formula-etq">Ecuación diferencial estocástica</span>dS = μS dt + σS dW_t</div><div class="formula"><span class="formula-etq">Solución exacta por lema de Itô</span>S(t) = S₀ · exp[(μ − σ²/2)t + σ√t · Z],  Z ~ N(0,1)</div><div class="formula"><span class="formula-etq">Valor en Riesgo</span>VaR_α = −(μ_P + z_α · σ_P · √T)</div></div>`,
+      'Código':`<div class="bloque-codigo"><div class="cod-cabeza"><span class="cod-lang">Python</span><button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button></div><pre><code class="language-python">import numpy as np
+
+def simular_mbg(S0, mu, sigma, T, dt, n_sims):
+    """Simula n_sims trayectorias de precio bajo MBG."""
+    pasos  = int(T / dt)
+    Z      = np.random.standard_normal((n_sims, pasos))
+    factor = np.exp((mu - 0.5*sigma**2)*dt + sigma*np.sqrt(dt)*Z)
+    S      = np.empty((n_sims, pasos+1)); S[:,0] = S0
+    for t in range(pasos):
+        S[:,t+1] = S[:,t] * factor[:,t]
+    return S
+
+def valuar_opcion(S0, K, r, sigma, T, tipo='compra', n=100_000):
+    ST = simular_mbg(S0, r, sigma, T, 1/252, n)[:,-1]
+    pagos = np.maximum(ST-K, 0) if tipo=='compra' else np.maximum(K-ST, 0)
+    precio = np.exp(-r*T) * np.mean(pagos)
+    error  = np.std(pagos) / np.sqrt(n)
+    return precio, error
+
+def calcular_var(S0, mu, sigma, T, confianza=0.95, n=100_000):
+    ST      = simular_mbg(S0, mu, sigma, T, T, n)[:,-1]
+    retornos = (ST - S0) / S0
+    var     = np.percentile(retornos, (1-confianza)*100)
+    cvar    = retornos[retornos<=var].mean()
+    return var, cvar
+
+precio, error = valuar_opcion(100, 100, 0.05, 0.20, 1)
+var95, cvar95 = calcular_var(100, 0.08, 0.20, 1/252)
+print(f"Opción de compra: ${precio:.4f} ± {error:.4f}")
+print(f"VaR 95%: {var95:.2%} | Pérdida esperada: {cvar95:.2%}")</code></pre></div>`,
+      'Resultados':`<div class="prosa"><div class="resultados-grid"><div class="res-caja"><div class="res-etq">Precio opción (sim.)</div><div class="res-val">$8.43</div><div class="res-sub">Black-Scholes: $8.41</div></div><div class="res-caja"><div class="res-etq">VaR 95%</div><div class="res-val">−4.2%</div><div class="res-sub">horizonte 1 día</div></div><div class="res-caja"><div class="res-etq">Pérdida esperada</div><div class="res-val">−6.8%</div><div class="res-sub">riesgo de cola</div></div><div class="res-caja"><div class="res-etq">Convergencia</div><div class="res-val">±0.5%</div><div class="res-sub">con 50k simulaciones</div></div></div><p>El error estándar de $0.02 confirma <strong>alta precisión</strong> con 100k trayectorias. La Pérdida Esperada supera al VaR en 62%, evidenciando la importancia de medir el riesgo de cola.</p></div>`,
+      'Conclusiones':`<div class="prosa"><p>La simulación valida los precios de Black-Scholes y es extensible a opciones con barreras y productos que dependen de toda la trayectoria del precio. La técnica de <strong>variables antitéticas</strong> reduce el error estándar un 40% sin costo computacional adicional.</p></div>`
+    }
+  },
+  {
+    id:'df', cat:'Aprendizaje automático', num:'03',
+    titulo:'Detección de Operaciones Fraudulentas',
+    desc:'Algoritmo para datos desbalanceados combinando detección de anomalías no supervisada con clasificación supervisada y optimización de umbral.',
+    tec:['Python','XGBoost','Scikit-learn','imbalanced-learn'],
+    pestañas:{
+      'Introducción':`<div class="prosa"><p>Con menos del <strong>0.2% de transacciones fraudulentas</strong>, los modelos convencionales fracasan al optimizar exactitud — un clasificador trivial que siempre predice "legítimo" alcanza 99.8% de exactitud y 0% de detección.</p><p>La solución combina tres enfoques complementarios:</p><ul><li><strong>Bosque de Aislamiento</strong> — detecta anomalías sin etiquetas de entrenamiento</li><li><strong>Sobremuestreo sintético (SMOTE)</strong> — genera muestras artificiales de la clase minoritaria</li><li><strong>XGBoost</strong> — clasificación supervisada con umbral optimizado</li></ul></div>`,
+      'Desarrollo':`<div class="prosa"><h3>Métricas relevantes</h3><div class="formula"><span class="formula-etq">Puntuación F1 (métrica objetivo)</span>F₁ = 2 · Precisión · Exhaustividad / (Precisión + Exhaustividad)</div><div class="formula"><span class="formula-etq">Bosque de Aislamiento — puntuación de anomalía</span>s(x,n) = 2^(−E[h(x)] / c(n))</div><p>El umbral de clasificación se selecciona maximizando F₁ sobre la curva Precisión-Exhaustividad, no usando 0.5 por defecto.</p></div>`,
+      'Código':`<div class="bloque-codigo"><div class="cod-cabeza"><span class="cod-lang">Python</span><button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button></div><pre><code class="language-python">from sklearn.ensemble import IsolationForest
+from imblearn.over_sampling import SMOTE
+from xgboost import XGBClassifier
+from sklearn.metrics import f1_score
+import numpy as np
+
+# 1. Señal de anomalía no supervisada
+bosque = IsolationForest(n_estimators=200, contamination=0.002, random_state=42)
+X_entrenamiento['bandera'] = (bosque.fit_predict(X_entrenamiento) == -1).astype(int)
+
+# 2. Sobremuestreo sintético
+X_res, y_res = SMOTE(sampling_strategy=0.1, random_state=42)\
+               .fit_resample(X_entrenamiento, y_entrenamiento)
+
+# 3. XGBoost con penalización de clase
+proporcion = y_res.value_counts()[0] / y_res.value_counts()[1]
+modelo = XGBClassifier(
+    n_estimators=300, max_depth=6, learning_rate=0.05,
+    scale_pos_weight=proporcion, eval_metric='aucpr', random_state=42
+)
+modelo.fit(X_res, y_res,
+           eval_set=[(X_val, y_val)], early_stopping_rounds=20)
+
+# 4. Umbral óptimo por F1 máximo
+probabilidades = modelo.predict_proba(X_prueba)[:,1]
+umbrales = np.linspace(0.01, 0.99, 200)
+umbral_optimo = umbrales[np.argmax(
+    [f1_score(y_prueba, probabilidades>=u) for u in umbrales]
+)]
+print(f"Umbral óptimo: {umbral_optimo:.3f}")</code></pre></div>`,
+      'Resultados':`<div class="prosa"><div class="resultados-grid"><div class="res-caja"><div class="res-etq">Puntuación F1</div><div class="res-val">0.89</div><div class="res-sub">clase fraude</div></div><div class="res-caja"><div class="res-etq">Exhaustividad</div><div class="res-val">91%</div><div class="res-sub">fraudes detectados</div></div><div class="res-caja"><div class="res-etq">Precisión</div><div class="res-val">87%</div><div class="res-sub">alertas correctas</div></div><div class="res-caja"><div class="res-etq">AUC-ROC</div><div class="res-val">0.98</div><div class="res-sub">discriminación</div></div></div><p>El umbral optimizado (0.38 frente a 0.5 por defecto) incrementó la exhaustividad en <strong>12 puntos porcentuales</strong> sin colapsar la precisión. El modelo supera en 23 puntos al clasificador logístico base.</p></div>`,
+      'Conclusiones':`<div class="prosa"><p>La clave fue tratar el problema como <strong>detección de anomalías antes que clasificación</strong> — la señal del Bosque de Aislamiento fue el atributo más importante en el modelo final.</p><h3>Aprendizajes de negocio</h3><ul><li>El costo asimétrico (falso negativo >> falso positivo) justifica reducir el umbral de decisión</li><li>La ingeniería de atributos aportó más valor que el algoritmo elegido</li><li>El monitoreo continuo de cambios en la distribución de datos es indispensable en producción</li></ul></div>`
+    }
+  },
+  {
+    id:'pv', cat:'Series de tiempo', num:'04',
+    titulo:'Pronóstico de Ventas en Retail',
+    desc:'Combinación de SARIMA y redes LSTM para predicción de ventas con estacionalidad múltiple y eventos comerciales.',
+    tec:['Python','TensorFlow','statsmodels','Pandas'],
+    pestañas:{
+      'Introducción':`<div class="prosa"><p>Proyecto aplicado a ventas diarias de calzado: predicción por artículo con horizonte de 30 días. El reto principal es capturar <strong>múltiples estacionalidades</strong> (semanal, anual) además del efecto de promociones y temporadas.</p><ul><li>Estacionalidad semanal y anual</li><li>Tendencia de crecimiento</li><li>Eventos especiales: Buen Fin, navidad, lanzamientos de temporada</li></ul></div>`,
+      'Desarrollo':`<div class="prosa"><h3>Descomposición de la serie</h3><div class="formula"><span class="formula-etq">Modelo aditivo</span>Y_t = T_t + S_t + R_t</div><h3>SARIMA estacional</h3><div class="formula"><span class="formula-etq">SARIMA(p,d,q)(P,D,Q)_s</span>Φ(Bˢ)φ(B)∇ˢᴰ∇ᵈYₜ = Θ(Bˢ)θ(B)εₜ</div><h3>Predicción combinada</h3><div class="formula"><span class="formula-etq">Conjunto ponderado</span>ŷ = α · SARIMA + (1−α) · LSTM</div><p>El parámetro α se optimizó minimizando el error absoluto medio en validación. Se encontró α = 0.4, dando mayor peso a la red neuronal para capturar los efectos no lineales de las promociones.</p></div>`,
+      'Código':`<div class="bloque-codigo"><div class="cod-cabeza"><span class="cod-lang">Python</span><button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button></div><pre><code class="language-python">import numpy as np
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense, Dropout
+
+def construir_lstm(ventana):
+    modelo = Sequential([
+        LSTM(64, input_shape=(ventana,1), return_sequences=True),
+        Dropout(0.2),
+        LSTM(32),
+        Dropout(0.2),
+        Dense(16, activation='relu'),
+        Dense(1)
+    ])
+    modelo.compile('adam', 'huber')
+    return modelo
+
+def crear_secuencias(datos, ventana):
+    X = np.array([datos[i:i+ventana] for i in range(len(datos)-ventana)])
+    y = datos[ventana:]
+    return X[..., np.newaxis], y
+
+# SARIMA con estacionalidad semanal
+sarima = SARIMAX(entrenamiento, order=(2,1,2),
+                 seasonal_order=(1,1,1,7)).fit(disp=False)
+
+# Red LSTM con ventana de 30 días
+X_ent, y_ent = crear_secuencias(datos_normalizados, 30)
+lstm = construir_lstm(30)
+lstm.fit(X_ent, y_ent, epochs=50, batch_size=32,
+         validation_split=0.1, verbose=0)
+
+# Conjunto ponderado optimizado
+alfa = 0.4
+prediccion = alfa * sarima.forecast(h) + (1-alfa) * lstm.predict(X_prueba)</code></pre></div>`,
+      'Resultados':`<div class="prosa"><div class="resultados-grid"><div class="res-caja"><div class="res-etq">Error porcentual medio</div><div class="res-val">4.8%</div><div class="res-sub">sobre datos de prueba</div></div><div class="res-caja"><div class="res-etq">Horizonte</div><div class="res-val">30 días</div><div class="res-sub">hacia adelante</div></div><div class="res-caja"><div class="res-etq">Mejora vs. ingenuo</div><div class="res-val">−38%</div><div class="res-sub">en error</div></div><div class="res-caja"><div class="res-etq">Mejora vs. SARIMA solo</div><div class="res-val">−15%</div><div class="res-sub">del conjunto</div></div></div><p>El conjunto reduce el error un <strong>38% frente al modelo de referencia</strong> y 15% frente a SARIMA solo. La red neuronal captura los picos de temporada que el modelo estadístico subestimaba.</p></div>`,
+      'Conclusiones':`<div class="prosa"><p>El modelo de predicción permite <strong>reducir el exceso de inventario</strong> y mejorar la disponibilidad de tallas clave en temporada alta.</p><h3>Impacto medido</h3><ul><li>Reducción ~18% en exceso de inventario estacional</li><li>Nivel de servicio mejorado de 91% a 96%</li><li>Proceso de pronóstico automatizado (antes manual, ~4 horas por semana)</li></ul></div>`
+    }
+  }
+];
+
+function renderizarProyectos(){
+  document.getElementById('lista-proy').innerHTML = PROYECTOS.map(p=>`
+    <a class="proy-fila" href="#" onclick="${p.url ? 'window.location=\''+p.url+'\'' : 'abrirModal(\''+p.id+'\')' };return false;">
+      <div class="proy-num">${p.num}</div>
+      <div>
+        <div class="proy-cat">${p.cat}</div>
+        <div class="proy-titulo">${p.titulo}</div>
+        <div class="proy-desc">${p.desc}</div>
+      </div>
+      <div class="proy-meta">
+        <div class="proy-tec">${p.tec.map(t=>`<span class="proy-tech">${t}</span>`).join('')}</div>
+        <div class="proy-flecha">↗</div>
+      </div>
+    </a>`).join('');
+}
+
+function abrirModal(id){
+  const p = PROYECTOS.find(x=>x.id===id); if(!p)return;
+  document.getElementById('m-cat').textContent = p.cat;
+  document.getElementById('m-titulo').textContent = p.titulo;
+  const claves = Object.keys(p.pestañas);
+  document.getElementById('m-pestañas').innerHTML = claves.map((k,i)=>
+    `<button class="mp-btn ${i===0?'activo':''}" onclick="cambiarPestaña(this,'panel-${id}-${i}')">${k}</button>`).join('');
+  document.getElementById('m-cuerpo').innerHTML = claves.map((k,i)=>
+    `<div class="mp-panel ${i===0?'activo':''}" id="panel-${id}-${i}">${p.pestañas[k]}</div>`).join('');
+  document.getElementById('modal-fondo').classList.add('abierto');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.querySelectorAll('#m-cuerpo pre code').forEach(el=>hljs.highlightElement(el)),60);
+}
+
+function cambiarPestaña(btn, id){
+  const m = btn.closest('.modal');
+  m.querySelectorAll('.mp-btn').forEach(b=>b.classList.remove('activo'));
+  m.querySelectorAll('.mp-panel').forEach(p=>p.classList.remove('activo'));
+  btn.classList.add('activo');
+  document.getElementById(id).classList.add('activo');
+}
+
+function cerrarModal(){
+  document.getElementById('modal-fondo').classList.remove('abierto');
+  document.body.style.overflow='';
+}
+
+function cerrarFondo(e){
