@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Predicción del PIB de México — Eduardo D. Martínez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    tags: 'ams'
+  },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+:root{
+  --crema:#FAF8F5;--blanco:#FFFFFF;--piedra:#F0EDE8;--corteza:#E8E2D9;
+  --tinta:#18160F;--tinta2:#3D3A31;--tinta3:#7A7569;--tinta4:#B8B2A7;
+  --terr:#C4572A;--terr-lt:#E8896A;--terr-bg:#FBF1ED;--terr-bd:rgba(196,87,42,0.15);
+  --verde:#2A7C6F;--azul:#2255AA;
+  --bd:rgba(0,0,0,0.07);--bd2:rgba(0,0,0,0.12);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--crema);color:var(--tinta);font-family:var(--sans);font-size:15px;line-height:1.6;overflow-x:hidden;}
+::selection{background:rgba(196,87,42,0.15);}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--crema);}
+::-webkit-scrollbar-thumb{background:var(--corteza);border-radius:2px;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(250,248,245,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);}
+.nav-iz{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-ini{width:30px;height:30px;border-radius:5px;background:var(--tinta);color:var(--crema);font-family:var(--serif);font-size:12px;font-style:italic;display:flex;align-items:center;justify-content:center;}
+.nav-nm{font-size:12px;font-weight:500;color:var(--tinta2);}
+.nav-de{display:flex;align-items:center;gap:1.5rem;}
+.nav-de a{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta3);text-decoration:none;transition:color .2s;}
+.nav-de a:hover{color:var(--terr);}
+.btn-v{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--tinta);color:var(--crema);padding:7px 16px;border-radius:4px;text-decoration:none;transition:background .2s;}
+.btn-v:hover{background:var(--terr);}
+
+.proy-hero{padding:7rem 3rem 4rem;display:grid;grid-template-columns:1fr 360px;gap:4rem;align-items:end;border-bottom:1px solid var(--bd);background:var(--blanco);}
+.ph-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--terr);background:var(--terr-bg);border:1px solid var(--terr-bd);padding:5px 12px;border-radius:100px;margin-bottom:1.4rem;}
+.ph-titulo{font-family:var(--serif);font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:700;color:var(--tinta);line-height:1.05;letter-spacing:-.02em;margin-bottom:1.2rem;}
+.ph-titulo em{font-style:italic;color:var(--terr);}
+.ph-desc{font-size:14px;font-weight:300;color:var(--tinta2);line-height:1.85;max-width:560px;margin-bottom:2rem;}
+.ph-tec{display:flex;flex-wrap:wrap;gap:7px;}
+.ph-tech{font-family:var(--mono);font-size:10px;color:var(--tinta3);background:var(--piedra);border:1px solid var(--bd2);padding:4px 10px;border-radius:3px;}
+.ph-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:8px;overflow:hidden;}
+.ph-stat{background:var(--blanco);padding:1.3rem 1.4rem;}
+.ph-stat-n{font-family:var(--serif);font-size:2rem;font-weight:700;font-style:italic;color:var(--terr);line-height:1;margin-bottom:.3rem;}
+.ph-stat-t{font-size:11px;font-weight:400;color:var(--tinta3);letter-spacing:.04em;}
+
+.tabs-barra{display:flex;padding:0 3rem;background:var(--blanco);border-bottom:2px solid var(--bd);position:sticky;top:54px;z-index:50;overflow-x:auto;}
+.tab{font-size:12px;font-weight:500;letter-spacing:.05em;color:var(--tinta3);background:none;border:none;padding:.9rem 1.4rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:color .2s,border-color .2s;}
+.tab.on{color:var(--terr);border-bottom-color:var(--terr);}
+.tab:hover:not(.on){color:var(--tinta);}
+
+.panel{display:none;padding:3.5rem 3rem;animation:apar .25s;}
+.panel.on{display:block;}
+@keyframes apar{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.prosa{max-width:800px;}
+.prosa h2{font-family:var(--serif);font-size:1.7rem;font-weight:700;color:var(--tinta);margin:2.5rem 0 1rem;letter-spacing:-.02em;}
+.prosa h2:first-child{margin-top:0;}
+.prosa h3{font-family:var(--serif);font-size:1.25rem;font-weight:700;color:var(--tinta);margin:2rem 0 .7rem;letter-spacing:-.01em;}
+.prosa p{font-size:14px;font-weight:300;color:var(--tinta2);line-height:1.9;margin-bottom:1rem;}
+.prosa strong{font-weight:600;color:var(--tinta);}
+.prosa ul,.prosa ol{padding-left:1.4rem;margin-bottom:1rem;}
+.prosa li{font-size:14px;font-weight:300;color:var(--tinta2);line-height:1.8;margin-bottom:.5rem;}
+
+.nota{background:var(--terr-bg);border:1px solid var(--terr-bd);border-left:3px solid var(--terr-lt);padding:1rem 1.4rem;border-radius:3px;margin:1.4rem 0;font-size:13px;font-weight:300;color:var(--tinta2);line-height:1.7;}
+.nota strong{color:var(--terr);font-weight:500;}
+
+/* Fórmulas LaTeX */
+.formula{
+  background:var(--terr-bg);
+  border:1px solid var(--terr-bd);
+  border-left:3px solid var(--terr-lt);
+  padding:1.4rem 1.8rem;
+  border-radius:3px;
+  margin:1.6rem 0;
+  overflow-x:auto;
+  text-align:center;
+}
+.formula-etq{
+  font-family:var(--mono);font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--terr-lt);
+  display:block;margin-bottom:.6rem;text-align:left;
+}
+.mjx-chtml{color:var(--terr) !important;}
+.MathJax{color:var(--terr) !important;}
+
+/* Bloques de código */
+.bloque-cod{margin:1.5rem 0;border-radius:4px;overflow:hidden;border:1px solid var(--bd2);}
+.cod-cab{background:var(--piedra);padding:.55rem 1.2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bd);}
+.cod-lang{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta3);}
+.btn-cop{font-family:var(--mono);font-size:9px;color:var(--tinta3);background:none;border:1px solid var(--bd2);padding:3px 9px;border-radius:3px;cursor:pointer;transition:color .2s,border-color .2s;}
+.btn-cop:hover{color:var(--terr);border-color:var(--terr-bd);}
+.bloque-cod pre{margin:0;border-radius:0;}
+.bloque-cod pre code.hljs{background:#FAFAF8;padding:1.4rem 1.6rem;font-size:12.5px;font-family:var(--mono);line-height:1.7;}
+
+/* Tarjetas de resultados */
+.met-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:1.5rem 0;}
+.met-caja{background:var(--blanco);border:1px solid var(--bd);border-radius:6px;padding:1.2rem 1.4rem;}
+.met-etq{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta3);margin-bottom:.5rem;}
+.met-val{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--terr);line-height:1;margin-bottom:.2rem;}
+.met-sub{font-size:11px;font-weight:300;color:var(--tinta3);font-family:var(--mono);}
+
+/* Tabla de resultados */
+.tabla-res{width:100%;border-collapse:collapse;font-size:13px;margin:1.2rem 0;}
+.tabla-res th{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta3);padding:.7rem 1rem;border-bottom:2px solid var(--bd2);text-align:left;background:var(--piedra);}
+.tabla-res td{padding:.8rem 1rem;border-bottom:1px solid var(--bd);color:var(--tinta2);font-weight:300;}
+.tabla-res tr:hover td{background:var(--crema);}
+.td-dest{font-weight:600;color:var(--terr);}
+
+/* Descarga PDF */
+.btn-pdf{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--tinta);color:var(--crema);
+  font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:11px 22px;border-radius:4px;text-decoration:none;
+  transition:background .2s;margin-top:1rem;
+}
+.btn-pdf:hover{background:var(--terr);}
+
+@media(max-width:900px){
+  .proy-hero{grid-template-columns:1fr;}.ph-stats{display:none;}
+  nav{padding:0 1.2rem;}.nav-de{display:none;}
+  .panel{padding:2rem 1.2rem;}.tabs-barra{padding:0 1.2rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-iz">
+    <div class="nav-ini">ED</div>
+    <span class="nav-nm">Eduardo D. Martínez</span>
+  </a>
+  <div class="nav-de">
+    <a href="../../index.html" class="btn-v">&#8592; Portfolio</a>
+  </div>
+</nav>
+
+<div class="proy-hero">
+  <div>
+    <div class="ph-badge">Ciencia de datos aplicada &middot; Proyecto 05</div>
+    <h1 class="ph-titulo">Predicción del<br><em>PIB de México</em></h1>
+    <p class="ph-desc">
+      Análisis socioeconómico con datos del INEGI (2005–2020), limpieza e interpolación de valores ausentes,
+      selección de variables por coeficiente de Pearson, y comparación de modelos de aprendizaje automático:
+      medias móviles, ARIMA y redes neuronales artificiales implementados en R.
+    </p>
+    <p class="ph-desc" style="margin-bottom:1.2rem;">
+      Proyecto realizado como <strong>Servicio Social</strong> en la Universidad Autónoma Metropolitana — Cuajimalpa,
+      bajo la supervisión de la Dra. Alma Rocío Sagaceta Mejía.
+    </p>
+    <div class="ph-tec">
+      <span class="ph-tech">R</span>
+      <span class="ph-tech">neuralnet</span>
+      <span class="ph-tech">forecast</span>
+      <span class="ph-tech">ggplot2</span>
+      <span class="ph-tech">INEGI</span>
+    </div>
+  </div>
+  <div class="ph-stats">
+    <div class="ph-stat"><div class="ph-stat-n">47</div><div class="ph-stat-t">variables analizadas</div></div>
+    <div class="ph-stat"><div class="ph-stat-n">16</div><div class="ph-stat-t">variables seleccionadas</div></div>
+    <div class="ph-stat"><div class="ph-stat-n">10</div><div class="ph-stat-t">redes neuronales</div></div>
+    <div class="ph-stat"><div class="ph-stat-n">15</div><div class="ph-stat-t">años de datos</div></div>
+  </div>
+</div>
+
+<div class="tabs-barra">
+  <button class="tab on"  onclick="irTab(this,'t-intro')">Introducción</button>
+  <button class="tab"     onclick="irTab(this,'t-datos')">Datos y limpieza</button>
+  <button class="tab"     onclick="irTab(this,'t-desa')">Desarrollo matemático</button>
+  <button class="tab"     onclick="irTab(this,'t-cod')">Código en R</button>
+  <button class="tab"     onclick="irTab(this,'t-res')">Resultados</button>
+  <button class="tab"     onclick="irTab(this,'t-conc')">Conclusiones</button>
+</div>
+
+<!-- ═══════════════════════════════════ INTRODUCCIÓN -->
+<div class="panel on" id="t-intro">
+  <div class="prosa">
+    <h2>Contexto del proyecto</h2>
+    <p>
+      El <strong>Producto Interno Bruto (PIB)</strong> es la suma del valor monetario de todos los bienes y
+      servicios producidos dentro de un país durante un período determinado. Su análisis permite conocer
+      la evolución de la actividad económica, identificar tendencias y anticipar comportamientos futuros.
+    </p>
+    <p>
+      Este proyecto fue desarrollado como <strong>Servicio Social</strong> en la UAM Cuajimalpa (junio 2021 – mayo 2023),
+      con el objetivo de construir modelos de aprendizaje automático capaces de pronosticar el
+      crecimiento económico de México usando datos socioeconómicos del INEGI.
+    </p>
+
+    <h3>Objetivo general</h3>
+    <p>
+      Construir una base de datos con variables socioeconómicas del INEGI que presenten alta correlación
+      con el PIB, y aplicar algoritmos de aprendizaje automático para realizar pronósticos del
+      comportamiento económico de México en años posteriores al período de análisis.
+    </p>
+
+    <h3>Objetivos específicos</h3>
+    <ul>
+      <li>Seleccionar fuentes de datos del INEGI con relación directa al PIB (educación, empleo, comercio exterior, vivienda, inversión)</li>
+      <li>Limpiar e interpolar valores ausentes mediante regresión polinomial y promedios</li>
+      <li>Calcular el coeficiente de correlación de Pearson entre cada variable y el PIB</li>
+      <li>Construir una base de datos consolidada con las variables de mayor correlación</li>
+      <li>Implementar y comparar medias móviles, ARIMA y redes neuronales artificiales en R</li>
+    </ul>
+
+    <div class="nota">
+      <strong>Período de análisis:</strong> 2005–2020 &nbsp;·&nbsp;
+      <strong>Fuente de datos:</strong> INEGI &nbsp;·&nbsp;
+      <strong>Tasa libre de riesgo de referencia:</strong> datos anuales &nbsp;·&nbsp;
+      <strong>Supervisora:</strong> Dra. Alma Rocío Sagaceta Mejía
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ DATOS Y LIMPIEZA -->
+<div class="panel" id="t-datos">
+  <div class="prosa">
+    <h2>Fuentes de datos y limpieza</h2>
+    <p>
+      Se seleccionaron <strong>9 bases de datos del INEGI</strong> que cubren distintos sectores de la
+      economía mexicana. Todas presentaban valores ausentes para algunos años del período 2005–2020.
+    </p>
+
+    <h3>Bases de datos utilizadas</h3>
+    <ul>
+      <li><strong>Servicios de salud</strong> — establecimientos por tipo a nivel nacional</li>
+      <li><strong>Población y vivienda</strong> — densidad, servicios, bienes por hogar</li>
+      <li><strong>Ocupación nacional de empleo</strong> — empleo formal e informal por estado y género</li>
+      <li><strong>Comercio exterior</strong> — exportaciones e importaciones por sector</li>
+      <li><strong>Balanza comercial</strong> — industria manufacturera y mercancías</li>
+      <li><strong>Educación</strong> — escolaridad, analfabetismo, niveles educativos por estado</li>
+      <li><strong>PIB</strong> — actividades primarias, secundarias y terciarias (valores constantes 2013)</li>
+      <li><strong>Exportaciones</strong> — por sector y período trimestral</li>
+      <li><strong>Inversión fija bruta</strong> — construcción, maquinaria y equipo</li>
+    </ul>
+
+    <h3>Metodología de limpieza</h3>
+    <p>
+      Para los valores ausentes se aplicaron dos estrategias según la cantidad de datos faltantes:
+    </p>
+
+    <div class="formula">
+      <span class="formula-etq">Interpolación por promedio (pocos valores ausentes)</span>
+      $$\hat{y}_t = \frac{y_{t-1} + y_{t+1}}{2}$$
+    </div>
+
+    <div class="formula">
+      <span class="formula-etq">Interpolación por regresión polinomial de grado k</span>
+      $$\hat{y}_t = \beta_0 + \beta_1 t + \beta_2 t^2 + \cdots + \beta_k t^k + \varepsilon_t$$
+    </div>
+
+    <h3>Selección de variables por correlación de Pearson</h3>
+    <p>
+      De las 47 variables originales se calculó el coeficiente de correlación con el PIB (Variable 44).
+      Se seleccionaron las <strong>16 variables con mayor correlación</strong> para construir
+      la base de datos final utilizada en los modelos de aprendizaje automático.
+    </p>
+
+    <div class="formula">
+      <span class="formula-etq">Coeficiente de correlación de Pearson</span>
+      $$r = \frac{\sigma_{xy}}{\sigma_x \, \sigma_y} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2}\;\sqrt{\sum_{i=1}^{n}(y_i-\bar{y})^2}}$$
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ DESARROLLO MATEMÁTICO -->
+<div class="panel" id="t-desa">
+  <div class="prosa">
+    <h2>Fundamentos matemáticos</h2>
+
+    <h3>1. Medias móviles</h3>
+    <p>
+      Las medias móviles calculan un promedio ponderado de observaciones pasadas para estimar el
+      siguiente valor de la serie. Se implementaron tres variantes:
+    </p>
+
+    <div class="formula">
+      <span class="formula-etq">Media móvil simple (SMA) — n períodos</span>
+      $$\hat{Y}_t = \frac{Y_{t-1} + Y_{t-2} + \cdots + Y_{t-n}}{n} = \frac{1}{n}\sum_{k=1}^{n} Y_{t-k}$$
+    </div>
+
+    <div class="formula">
+      <span class="formula-etq">Media móvil exponencial (EMA)</span>
+      $$\text{EMA}_t = Y_t \cdot K + \text{EMA}_{t-1} \cdot (1-K), \qquad K = \frac{2}{N+1}$$
+    </div>
+
+    <div class="formula">
+      <span class="formula-etq">Media móvil ponderada (WMA)</span>
+      $$\hat{Y}_t = \frac{\sum_{k=1}^{t} W_k \cdot Y_k}{\sum_{k=1}^{t} W_k}$$
+    </div>
+
+    <h3>2. Series de tiempo — Prueba de Dickey-Fuller</h3>
+    <p>
+      Antes de ajustar un modelo ARIMA es necesario verificar la <strong>estacionariedad</strong>
+      de la serie. Una serie estacionaria satisface:
+    </p>
+
+    <div class="formula">
+      <span class="formula-etq">Condiciones de estacionariedad</span>
+      $$\mathbb{E}[Y_t] = \mathbb{E}[Y_{t+m}] \quad \forall\, t,m$$
+      $$\text{Var}(Y_t) = \text{Var}(Y_{t+m}) \quad \forall\, t,m$$
+      $$\text{Cov}(Y_t, Y_{t+m}) = \text{Cov}(Y_{t+m}, Y_{t+m+k}) \quad \forall\, t,m,k$$
+    </div>
+
+    <p>
+      La prueba de Dickey-Fuller contrasta la existencia de una raíz unitaria en el polinomio
+      característico de la serie:
+    </p>
+
+    <div class="formula">
+      <span class="formula-etq">Hipótesis de la prueba Dickey-Fuller</span>
+      $$H_0: \lambda = 1 \quad \text{(la serie NO es estacionaria)}$$
+      $$H_a: \lambda < 1 \quad \text{(la serie ES estacionaria)}$$
+    </div>
+
+    <div class="formula">
+      <span class="formula-etq">Operador de diferencias (para obtener estacionariedad)</span>
+      $$\nabla Y_t = Y_t - Y_{t-1} \qquad \nabla^2 Y_t = Y_t - 2Y_{t-1} + Y_{t-2}$$
+    </div>
+
+    <h3>3. Transformaciones de datos</h3>
+    <p>En modelos multivariados es fundamental que todas las variables compartan la misma escala:</p>
+
+    <div class="formula">
+      <span class="formula-etq">Escalado min-max — transforma al intervalo [0, 1]</span>
+      $$Y_{\text{scaled}} = \frac{Y_i - Y_{\min}}{Y_{\max} - Y_{\min}}$$
+    </div>
+
+    <div class="formula">
+      <span class="formula-etq">Normalización estándar — media 0, desviación estándar 1</span>
+      $$Y_{\text{norm}} = \frac{Y_i - \bar{Y}}{\sigma_Y}$$
+    </div>
+
+    <div class="formula">
+      <span class="formula-etq">Reescalado inverso (para pronóstico en escala original)</span>
+      $$Y_{\text{rescaled}} = Y_{\text{scaled}} \cdot Y_{\max}$$
+    </div>
+
+    <h3>4. Redes neuronales — Perceptrón</h3>
+    <p>
+      La unidad básica de una red neuronal es el <strong>perceptrón</strong>, que calcula una
+      combinación lineal de sus entradas y aplica una función de activación no lineal:
+    </p>
+
+    <div class="formula">
+      <span class="formula-etq">Función de salida del perceptrón</span>
+      $$y = f\!\left(\sum_{i=1}^{n} X_i W_i + b\right)$$
+    </div>
+
+    <p>
+      Donde $X_i$ son las entradas, $W_i$ los pesos de conexión, $b$ el sesgo (bias) y
+      $f(\cdot)$ la función de activación. Se evaluaron funciones sigmoidea, tangente hiperbólica y ReLU.
+    </p>
+
+    <div class="formula">
+      <span class="formula-etq">Error cuadrático medio (ECM) — criterio de selección del modelo</span>
+      $$\text{ECM} = \frac{1}{n}\sum_{i=1}^{n}\left(\hat{Y}_i - Y_i\right)^2$$
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ CÓDIGO EN R -->
+<div class="panel" id="t-cod">
+  <div class="prosa">
+    <h2>Implementación en R</h2>
+    <p>Todo el análisis fue desarrollado en R. A continuación se presentan los fragmentos principales.</p>
+    <h3>1. Limpieza e interpolación de datos</h3>
+  </div>
+
+  <div class="bloque-cod">
+    <div class="cod-cab"><span class="cod-lang">R</span><button class="btn-cop" onclick="copiar(this)">Copiar</button></div>
+    <pre><code class="language-r"># Cargar librerías
+library(readxl)
+library(dplyr)
+library(ggplot2)
+
+# Cargar base de datos del INEGI
+datos <- read_excel("base_inegi.xlsx", sheet = 1)
+
+# Detectar valores ausentes
+valores_na <- colSums(is.na(datos))
+cat("Variables con valores ausentes:\n")
+print(valores_na[valores_na > 0])
+
+# Interpolación por promedio (para 1-2 valores ausentes)
+interpolar_promedio <- function(vec) {
+  for (i in 2:(length(vec) - 1)) {
+    if (is.na(vec[i])) {
+      vec[i] <- (vec[i - 1] + vec[i + 1]) / 2
+    }
+  }
+  return(vec)
+}
+
+# Interpolación por regresión polinomial (para más valores ausentes)
+interpolar_polinomial <- function(vec, grado = 2) {
+  idx <- which(!is.na(vec))
+  t   <- 1:length(vec)
+  modelo <- lm(vec[idx] ~ poly(t[idx], grado))
+  vec[is.na(vec)] <- predict(modelo, newdata = data.frame(t = t[is.na(vec)]))
+  return(vec)
+}
+
+# Aplicar interpolación a todas las columnas
+datos_limpios <- datos %>%
+  mutate(across(everything(), ~ {
+    n_na <- sum(is.na(.))
+    if (n_na == 0) .
+    else if (n_na <= 2) interpolar_promedio(.)
+    else interpolar_polinomial(., grado = 2)
+  }))</code></pre>
+  </div>
+
+  <div class="prosa" style="margin-top:2rem;"><h3>2. Selección de variables por correlación de Pearson</h3></div>
+
+  <div class="bloque-cod">
+    <div class="cod-cab"><span class="cod-lang">R</span><button class="btn-cop" onclick="copiar(this)">Copiar</button></div>
+    <pre><code class="language-r">library(corrplot)
+
+# Calcular matriz de correlación con el PIB (Variable_44)
+matriz_cor <- cor(datos_limpios, use = "complete.obs")
+
+# Extraer correlaciones con el PIB
+cor_pib <- matriz_cor["Variable_44", ]
+cor_pib_ordenado <- sort(abs(cor_pib), decreasing = TRUE)
+
+cat("Top 16 variables con mayor correlación con el PIB:\n")
+print(cor_pib_ordenado[1:17])  # 17 porque incluye la variable 44 misma
+
+# Variables seleccionadas (umbral |r| > 0.85)
+vars_seleccionadas <- names(cor_pib_ordenado[cor_pib_ordenado > 0.85])
+vars_seleccionadas <- vars_seleccionadas[vars_seleccionadas != "Variable_44"]
+
+# Base de datos final
+base_final <- datos_limpios[, c(vars_seleccionadas, "Variable_44")]
+
+# Visualizar mapa de calor
+corrplot(matriz_cor[vars_seleccionadas, vars_seleccionadas],
+         method = "circle", type = "lower",
+         col = colorRampPalette(c("#2255AA", "#FAF8F5", "#C4572A"))(200),
+         tl.cex = 0.7, title = "Correlación entre variables seleccionadas")</code></pre>
+  </div>
+
+  <div class="prosa" style="margin-top:2rem;"><h3>3. Medias móviles y ARIMA</h3></div>
+
+  <div class="bloque-cod">
+    <div class="cod-cab"><span class="cod-lang">R</span><button class="btn-cop" onclick="copiar(this)">Copiar</button></div>
+    <pre><code class="language-r">library(forecast)
+library(tseries)
+
+pib <- ts(datos_limpios$Variable_44, start = 2000, frequency = 1)
+
+# ── Medias móviles ──────────────────────────────────────────────────────
+ma3 <- ma(pib, order = 3)
+ma6 <- ma(pib, order = 6)
+
+pronostico_ma3 <- forecast(ma3, h = 3)
+pronostico_ma6 <- forecast(ma6, h = 3)
+
+cat("Pronóstico media móvil 3 períodos:\n")
+print(pronostico_ma3$mean)
+
+cat("\nPronóstico media móvil 6 períodos:\n")
+print(pronostico_ma6$mean)
+
+# ── Prueba de Dickey-Fuller ─────────────────────────────────────────────
+adf_test <- adf.test(pib)
+cat("\nPrueba Dickey-Fuller — p-value:", adf_test$p.value, "\n")
+# p-value = 0.8396 → serie NO estacionaria
+
+# Diferenciar la serie
+pib_diff1 <- diff(pib, differences = 1)
+adf_diff1 <- adf.test(pib_diff1)
+cat("Después de 1 diferencia — p-value:", adf_diff1$p.value, "\n")
+
+# ── Modelo ARIMA automático ─────────────────────────────────────────────
+modelo_arima <- auto.arima(pib, stepwise = FALSE, approximation = FALSE)
+cat("\nMejor modelo seleccionado:\n")
+print(modelo_arima)
+# Resultado: ARIMA(0,1,0)
+
+pronostico_arima <- forecast(modelo_arima, h = 3)
+cat("\nPronóstico ARIMA (2021–2023):\n")
+print(pronostico_arima$mean)
+
+# Visualizar
+autoplot(pronostico_arima) +
+  labs(title = "PIB de México — Modelo ARIMA(0,1,0)",
+       x = "Año", y = "Millones de pesos (precios 2013)") +
+  theme_minimal()</code></pre>
+  </div>
+
+  <div class="prosa" style="margin-top:2rem;"><h3>4. Redes neuronales artificiales</h3></div>
+
+  <div class="bloque-cod">
+    <div class="cod-cab"><span class="cod-lang">R</span><button class="btn-cop" onclick="copiar(this)">Copiar</button></div>
+    <pre><code class="language-r">library(neuralnet)
+
+# ── Escalado de datos ────────────────────────────────────────────────────
+escalar <- function(x) (x - min(x)) / (max(x) - min(x))
+reescalar <- function(x_scaled, x_orig) x_scaled * max(x_orig)
+
+base_escalada <- as.data.frame(lapply(base_final, escalar))
+
+# ── Construcción de 10 redes neuronales ─────────────────────────────────
+arquitecturas <- list(
+  c(2, 2),       # Red 1
+  c(2, 2, 2),    # Red 2
+  c(4, 2, 2),    # Red 3  ← menor ECM
+  c(6, 3, 2),    # Red 4
+  c(2, 5, 4),    # Red 5
+  c(4, 4, 4),    # Red 6
+  c(5, 5, 5),    # Red 7
+  c(6, 7, 6),    # Red 8
+  c(10,10,10,10),# Red 9
+  c(7,10,9,2,1)  # Red 10
+)
+
+formula_rn <- as.formula(
+  paste("Variable_44 ~", paste(vars_seleccionadas, collapse = " + "))
+)
+
+# Entrenar todas las redes y calcular ECM
+resultados_ecm <- data.frame(Red = character(), ECM = numeric())
+
+for (i in seq_along(arquitecturas)) {
+  set.seed(42)
+  red <- neuralnet(
+    formula    = formula_rn,
+    data       = base_escalada,
+    hidden     = arquitecturas[[i]],
+    linear.output = TRUE,
+    threshold  = 0.01
+  )
+  
+  pred_scaled <- compute(red, base_escalada[, vars_seleccionadas])$net.result
+  pred_orig   <- reescalar(pred_scaled, base_final$Variable_44)
+  real_orig   <- base_final$Variable_44
+  
+  ecm <- mean((pred_orig - real_orig)^2)
+  resultados_ecm <- rbind(resultados_ecm,
+                          data.frame(Red = paste0("Red neuronal ", i), ECM = ecm))
+  cat(sprintf("Red %2d — ECM: %.1f\n", i, ecm))
+}
+
+# Red con menor ECM
+mejor_red <- resultados_ecm[which.min(resultados_ecm$ECM), ]
+cat("\nMejor modelo:", mejor_red$Red, "— ECM:", mejor_red$ECM, "\n")
+# Resultado: Red neuronal 3 (capas: 4-2-2) con ECM = 452,918.8</code></pre>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ RESULTADOS -->
+<div class="panel" id="t-res">
+  <div class="prosa">
+    <h2>Resultados comparativos</h2>
+    <p>
+      Se evaluaron tres familias de modelos. La siguiente tabla resume los pronósticos
+      obtenidos para 2021–2023 y su comparación con el valor real del PIB en 2021
+      ($17,817,973 millones de pesos).
+    </p>
+  </div>
+
+  <div class="met-grid">
+    <div class="met-caja">
+      <div class="met-etq">Mejor modelo</div>
+      <div class="met-val">Red 3</div>
+      <div class="met-sub">capas ocultas [4,2,2]</div>
+    </div>
+    <div class="met-caja">
+      <div class="met-etq">ECM mínimo</div>
+      <div class="met-val">452,919</div>
+      <div class="met-sub">error cuadrático medio</div>
+    </div>
+    <div class="met-caja">
+      <div class="met-etq">Pronóstico 2021</div>
+      <div class="met-val">$17.99B</div>
+      <div class="met-sub">vs real $17.82B</div>
+    </div>
+    <div class="met-caja">
+      <div class="met-etq">Error 2021</div>
+      <div class="met-val">0.97%</div>
+      <div class="met-sub">diferencia porcentual</div>
+    </div>
+  </div>
+
+  <div class="prosa" style="margin-top:2rem;"><h3>Comparación de pronósticos (2021–2023)</h3></div>
+
+  <div style="overflow-x:auto;">
+    <table class="tabla-res">
+      <thead>
+        <tr>
+          <th>Modelo</th>
+          <th>Pronóstico 2021</th>
+          <th>Pronóstico 2022</th>
+          <th>Pronóstico 2023</th>
+          <th>Observaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Media móvil 3</td>
+          <td>$18,286,848</td>
+          <td>$18,587,426</td>
+          <td>$18,888,005</td>
+          <td>Capta tendencia positiva</td>
+        </tr>
+        <tr>
+          <td>Media móvil 6</td>
+          <td>$17,888,503</td>
+          <td>$17,923,564</td>
+          <td>$17,958,624</td>
+          <td>Pronósticos casi constantes</td>
+        </tr>
+        <tr>
+          <td>ARIMA(0,1,0)</td>
+          <td>$17,152,133</td>
+          <td>$17,353,048</td>
+          <td>$17,553,963</td>
+          <td>Mejor ajuste estadístico</td>
+        </tr>
+        <tr style="background:var(--terr-bg);">
+          <td class="td-dest">Red neuronal 3 ★</td>
+          <td class="td-dest">$17,991,199</td>
+          <td class="td-dest">—</td>
+          <td class="td-dest">—</td>
+          <td class="td-dest">Menor ECM, multivariable</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prosa" style="margin-top:2.5rem;">
+    <h3>Error cuadrático medio por red neuronal</h3>
+  </div>
+
+  <div style="overflow-x:auto;">
+    <table class="tabla-res">
+      <thead>
+        <tr><th>Modelo</th><th>Arquitectura</th><th>ECM</th></tr>
+      </thead>
+      <tbody>
+        <tr style="background:var(--terr-bg);"><td class="td-dest">Red neuronal 3 ★</td><td class="td-dest">[4, 2, 2]</td><td class="td-dest">452,918.8</td></tr>
+        <tr><td>Red neuronal 8</td><td>[6, 7, 6]</td><td>497,742.7</td></tr>
+        <tr><td>Red neuronal 7</td><td>[5, 5, 5]</td><td>513,871.4</td></tr>
+        <tr><td>Red neuronal 5</td><td>[2, 5, 4]</td><td>530,201.1</td></tr>
+        <tr><td>Red neuronal 2</td><td>[2, 2, 2]</td><td>547,585.2</td></tr>
+        <tr><td>Red neuronal 1</td><td>[2, 2]</td><td>579,690.6</td></tr>
+        <tr><td>Red neuronal 6</td><td>[4, 4, 4]</td><td>629,675.1</td></tr>
+        <tr><td>Red neuronal 9</td><td>[10, 10, 10, 10]</td><td>631,958.7</td></tr>
+        <tr><td>Red neuronal 4</td><td>[6, 3, 2]</td><td>1,498,997.8</td></tr>
+        <tr><td>Red neuronal 10</td><td>[7, 10, 9, 2, 1]</td><td>1,503,123.3</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prosa" style="margin-top:2.5rem;">
+    <a href="Reporte_Servicio_Social.pdf" class="btn-pdf" target="_blank">
+      ↓ Descargar reporte completo (PDF)
+    </a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ CONCLUSIONES -->
+<div class="panel" id="t-conc">
+  <div class="prosa">
+    <h2>Conclusiones</h2>
+    <p>
+      De los modelos implementados, las <strong>redes neuronales resultaron las más adecuadas</strong>
+      para pronosticar el PIB de México. La ventaja principal sobre medias móviles y ARIMA es su
+      capacidad para trabajar con múltiples variables predictoras simultáneamente, permitiendo
+      capturar la naturaleza multivariada del PIB.
+    </p>
+
+    <h3>Hallazgos principales</h3>
+    <ul>
+      <li>
+        El PIB de México <strong>no presenta estacionariedad</strong> (p-value = 0.8396 en Dickey-Fuller),
+        lo que limita el uso directo de modelos ARIMA clásicos.
+      </li>
+      <li>
+        La función <code>auto.arima</code> seleccionó un <strong>ARIMA(0,1,0)</strong> como mejor modelo
+        univariado — equivalente a un modelo de caminata aleatoria con drift.
+      </li>
+      <li>
+        La <strong>Red neuronal 3</strong> con arquitectura [4,2,2] y 16 variables predictoras
+        obtuvo el menor ECM (452,918) y pronosticó $17,991,199 millones para 2021,
+        con un error del 0.97% respecto al valor real ($17,817,973).
+      </li>
+      <li>
+        El 60–70% del tiempo del proyecto se dedicó a <strong>limpieza y estructuración de datos</strong>,
+        confirmando que la calidad del dato es más determinante que el algoritmo elegido.
+      </li>
+    </ul>
+
+    <h3>Limitaciones</h3>
+    <ul>
+      <li>Solo se contaba con datos anuales (20 observaciones) — insuficientes para separar
+          conjuntos de entrenamiento y prueba de forma robusta</li>
+      <li>Los errores de la red no siguen distribución normal, afectando las pruebas de hipótesis</li>
+      <li>Usar datos trimestrales mejoraría significativamente la cantidad de observaciones disponibles</li>
+    </ul>
+
+    <h3>Extensiones posibles</h3>
+    <ul>
+      <li>Incorporar datos trimestrales del INEGI/BANXICO para aumentar el tamaño de muestra</li>
+      <li>Explorar modelos LSTM que capturen dependencias temporales de largo plazo</li>
+      <li>Comparar con modelos de árbol de decisión (Random Forest, XGBoost)</li>
+      <li>Incluir variables macroeconómicas externas (tipo de cambio, precio del petróleo)</li>
+    </ul>
+
+    <div class="nota" style="margin-top:2rem;">
+      <strong>Referencia:</strong> Martínez Rodríguez, E. D. (2023).
+      <em>Apoyo en el análisis de los datos socio-económicos de México usando métodos de
+      ciencia de datos para predecir el crecimiento económico.</em>
+      Reporte de Servicio Social. UAM Cuajimalpa. Supervisora: Dra. Alma Rocío Sagaceta Mejía.
+    </div>
+  </div>
+</div>
+
+<script>
+function irTab(btn, id){
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+  btn.classList.add('on');
+  document.getElementById(id).classList.add('on');
+  window.scrollTo({top:110, behavior:'smooth'});
+}
+
+function copiar(btn){
+  var txt = btn.closest('.bloque-cod').querySelector('code').innerText;
+  navigator.clipboard.writeText(txt).then(function(){
+    btn.textContent = 'Copiado';
+    setTimeout(function(){ btn.textContent = 'Copiar'; }, 2000);
+  });
+}
+
+document.querySelectorAll('pre code').forEach(function(el){ hljs.highlightElement(el); });
+</script>
+</body>
+</html>

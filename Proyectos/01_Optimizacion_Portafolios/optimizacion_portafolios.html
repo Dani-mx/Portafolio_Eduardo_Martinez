@@ -64,8 +64,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:54px;display:flex;ali
 .prosa li{font-size:14px;font-weight:300;color:var(--tinta2);line-height:1.8;margin-bottom:.4rem;}
 .nota{background:var(--terr-bg);border:1px solid var(--terr-bd);border-left:3px solid var(--terr-lt);padding:1rem 1.4rem;border-radius:3px;margin:1.4rem 0;font-size:13px;font-weight:300;color:var(--tinta2);line-height:1.7;}
 .nota strong{color:var(--terr);font-weight:500;}
-.formula{background:var(--terr-bg);border:1px solid var(--terr-bd);border-left:3px solid var(--terr-lt);padding:1.2rem 1.8rem;border-radius:3px;margin:1.4rem 0;font-family:var(--mono);font-size:13.5px;color:var(--terr);line-height:2.2;overflow-x:auto;white-space:pre;}
-.formula-etq{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--terr-lt);display:block;margin-bottom:.3rem;white-space:normal;}
+.formula{background:var(--terr-bg);border:1px solid var(--terr-bd);border-left:3px solid var(--terr-lt);padding:1.4rem 1.8rem;border-radius:3px;margin:1.6rem 0;overflow-x:auto;}
+.formula-etq{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--terr-lt);display:block;margin-bottom:.7rem;}
+.formula .MathJax{color:var(--terr) !important;}
+.mjx-chtml{color:var(--terr) !important;}
 .bloque-cod{margin:1.5rem 0;border-radius:4px;overflow:hidden;border:1px solid var(--bd2);}
 .cod-cab{background:var(--piedra);padding:.55rem 1.2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bd);}
 .cod-lang{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta3);}
@@ -119,6 +121,17 @@ input[type=range]{width:100%;height:4px;accent-color:var(--terr);cursor:pointer;
   .dos-col{grid-template-columns:1fr;}
 }
 </style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    tags: 'ams'
+  },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
 <nav>
@@ -204,26 +217,22 @@ input[type=range]{width:100%;height:4px;accent-color:var(--terr);cursor:pointer;
     <h2>Formulación matemática</h2>
     <h3>Retorno y riesgo del portafolio</h3>
     <p>Sea <strong>w = (w₁, w₂, …, wₙ)</strong> el vector de pesos, donde wᵢ es la fracción del capital asignada al activo i. El retorno esperado y la varianza del portafolio se definen como:</p>
-    <div class="formula"><span class="formula-etq">Retorno esperado del portafolio</span>μ_p = wᵀ μ = Σᵢ wᵢ μᵢ</div>
-    <div class="formula"><span class="formula-etq">Varianza del portafolio</span>σ²_p = wᵀ Σ w = ΣᵢΣⱼ wᵢ wⱼ σᵢⱼ</div>
+    <div class="formula"><span class="formula-etq">Retorno esperado del portafolio</span>$$\mu_p = \mathbf{w}^\top \boldsymbol{\mu} = \sum_{i=1}^{n} w_i \mu_i$$</div>
+    <div class="formula"><span class="formula-etq">Varianza del portafolio</span>$$\sigma^2_p = \mathbf{w}^\top \boldsymbol{\Sigma}\, \mathbf{w} = \sum_{i=1}^{n}\sum_{j=1}^{n} w_i\, w_j\, \sigma_{ij}$$</div>
     <p>Donde <strong>μ</strong> es el vector de retornos esperados y <strong>Σ</strong> es la matriz de covarianzas. La varianza del portafolio depende no solo de las varianzas individuales σ²ᵢ, sino también de todas las covarianzas σᵢⱼ entre pares de activos — ahí está la clave de la diversificación.</p>
     <h3>El índice de Sharpe</h3>
     <p>William Sharpe propuso en 1966 una medida para evaluar el rendimiento ajustado por riesgo. Dado que un inversionista puede obtener la tasa libre de riesgo r_f sin tomar ningún riesgo, lo relevante es el <em>exceso</em> de retorno por unidad de volatilidad:</p>
-    <div class="formula"><span class="formula-etq">Índice de Sharpe</span>S = (μ_p − r_f) / σ_p</div>
+    <div class="formula"><span class="formula-etq">Índice de Sharpe</span>$$S = \frac{\mu_p - r_f}{\sigma_p}$$</div>
     <h3>El problema de optimización</h3>
     <p>Buscamos el vector de pesos que maximiza el índice de Sharpe, sujeto a restricciones:</p>
-    <div class="formula"><span class="formula-etq">Problema de maximización (Sharpe)</span>max  S(w) = (wᵀμ − r_f) / √(wᵀΣw)
-s.a.  Σᵢ wᵢ = 1    (los pesos suman 100%)
-      wᵢ ≥ 0         (sin posiciones cortas)</div>
+    <div class="formula"><span class="formula-etq">Problema de maximización (Sharpe)</span>$$\max_{\mathbf{w}}\; S(\mathbf{w}) = \frac{\mathbf{w}^\top\boldsymbol{\mu} - r_f}{\sqrt{\mathbf{w}^\top \boldsymbol{\Sigma}\, \mathbf{w}}}$$$$\text{s.a.} \quad \sum_{i=1}^{n} w_i = 1, \qquad w_i \geq 0 \quad \forall\, i$$</div>
     <p>Este es un problema de optimización no lineal con restricciones. Lo resolvemos numéricamente con el método <strong>SLSQP</strong> (Programación Cuadrática Secuencial) de SciPy.</p>
     <h3>Construcción de la frontera eficiente</h3>
     <p>Para trazar la frontera eficiente, resolvemos el problema de mínima varianza para cada nivel de retorno objetivo μ* en un rango de valores:</p>
-    <div class="formula"><span class="formula-etq">Problema de mínima varianza para retorno fijo</span>min  σ²_p = wᵀΣw
-s.a.  wᵀμ = μ*   (retorno objetivo)
-      Σwᵢ = 1,  wᵢ ≥ 0</div>
+    <div class="formula"><span class="formula-etq">Problema de mínima varianza para retorno fijo</span>$$\min_{\mathbf{w}}\; \sigma^2_p = \mathbf{w}^\top \boldsymbol{\Sigma}\, \mathbf{w}$$$$\text{s.a.} \quad \mathbf{w}^\top\boldsymbol{\mu} = \mu^*,\quad \sum_{i=1}^{n} w_i = 1,\quad w_i \geq 0$$</div>
     <h3>¿Por qué funciona la diversificación?</h3>
     <p>Expandiendo la varianza del portafolio:</p>
-    <div class="formula"><span class="formula-etq">Expansión de la varianza</span>σ²_p = Σᵢ w²ᵢ σ²ᵢ  +  ΣᵢΣⱼ≠ᵢ wᵢ wⱼ σᵢⱼ</div>
+    <div class="formula"><span class="formula-etq">Expansión de la varianza</span>$$\sigma^2_p = \sum_{i=1}^{n} w_i^2\,\sigma_i^2 \;+\; \sum_{i=1}^{n}\sum_{\substack{j=1 \\ j\neq i}}^{n} w_i\, w_j\, \sigma_{ij}$$</div>
     <p>El primer término es el riesgo idiosincrático (varianzas individuales). El segundo término, las covarianzas, <strong>reduce la varianza total</strong> cuando los activos no están perfectamente correlacionados. Eso es exactamente la diversificación.</p>
   </div>
   <div class="viz-wrap" style="margin-top:2rem;">
