@@ -462,7 +462,7 @@ footer{background:var(--tinta);border-top:1px solid rgba(255,255,255,0.05);paddi
     <!-- Estadísticas -->
     <div class="estadisticas">
       <div class="est-caja">
-        <div class="est-n">3<span>+</span></div>
+        <div class="est-n">4<span>+</span></div>
         <div class="est-txt">años de experiencia</div>
       </div>
       <div class="est-caja">
@@ -835,19 +835,30 @@ function abrirProyecto(url, id){
 }
 
 function renderizarProyectos(){
-  document.getElementById('lista-proy').innerHTML = PROYECTOS.map(p=>`
-    <a class="proy-fila" href="#" onclick="abrirProyecto('${p.url||''}','${p.id}');return false;">
-      <div class="proy-num">${p.num}</div>
-      <div>
-        <div class="proy-cat">${p.cat}</div>
-        <div class="proy-titulo">${p.titulo}</div>
-        <div class="proy-desc">${p.desc}</div>
-      </div>
-      <div class="proy-meta">
-        <div class="proy-tec">${p.tec.map(t=>`<span class="proy-tech">${t}</span>`).join('')}</div>
-        <div class="proy-flecha">↗</div>
-      </div>
-    </a>`).join('');
+  const lista = document.getElementById('lista-proy');
+  lista.innerHTML = '';
+  PROYECTOS.forEach(function(p){
+    const a = document.createElement('a');
+    a.className = 'proy-fila';
+    a.href = '#';
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      if(p.url){ window.location.href = p.url; } else { abrirModal(p.id); }
+    });
+    const tecHtml = p.tec.map(function(t){ return '<span class="proy-tech">'+t+'</span>'; }).join('');
+    a.innerHTML =
+      '<div class="proy-num">'+p.num+'</div>'+
+      '<div>'+
+        '<div class="proy-cat">'+p.cat+'</div>'+
+        '<div class="proy-titulo">'+p.titulo+'</div>'+
+        '<div class="proy-desc">'+p.desc+'</div>'+
+      '</div>'+
+      '<div class="proy-meta">'+
+        '<div class="proy-tec">'+tecHtml+'</div>'+
+        '<div class="proy-flecha">↗</div>'+
+      '</div>';
+    lista.appendChild(a);
+  });
 }
 
 function abrirModal(id){
