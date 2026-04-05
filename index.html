@@ -746,17 +746,27 @@ function renderizarProyectos(){
 }
 
 function abrirModal(id){
-  const p = PROYECTOS.find(x=>x.id===id); if(!p)return;
+  var p = PROYECTOS.find(function(x){ return x.id === id; });
+  if(!p) return;
   document.getElementById('m-cat').textContent = p.cat;
   document.getElementById('m-titulo').textContent = p.titulo;
-  const claves = Object.keys(p.pestañas);
-  document.getElementById('m-pestañas').innerHTML = claves.map((k,i)=>
-    `<button class="mp-btn ${i===0?'activo':''}" onclick="cambiarPestaña(this,'panel-${id}-${i}')">${k}</button>`).join('');
-  document.getElementById('m-cuerpo').innerHTML = claves.map((k,i)=>
-    `<div class="mp-panel ${i===0?'activo':''}" id="panel-${id}-${i}">${p.pestañas[k]}</div>`).join('');
+  document.getElementById('m-pestañas').innerHTML = '';
+  document.getElementById('m-cuerpo').innerHTML =
+    '<div style="padding:3.5rem 2.5rem;text-align:center;">' +
+    '<div style="font-size:3.5rem;margin-bottom:1.5rem;color:var(--terracota);">∫</div>' +
+    '<p style="font-family:var(--serif);font-size:1.6rem;font-style:italic;color:var(--tinta);margin-bottom:1rem;line-height:1.3;">' +
+    'Este proyecto aún está convergiendo...' +
+    '</p>' +
+    '<p style="font-size:13.5px;font-weight:300;color:var(--tinta3);line-height:1.8;max-width:380px;margin:0 auto 2rem;">' +
+    'Como toda buena serie de Taylor, necesita unos términos más para ser exacto. ' +
+    'Estoy trabajando en ello — vuelve pronto.' +
+    '</p>' +
+    '<div style="display:inline-block;background:var(--terr-bg);border:1px solid var(--terr-bd);border-radius:6px;padding:.6rem 1.4rem;">' +
+    '<span style="font-family:var(--mono);font-size:11px;color:var(--terracota);letter-spacing:.1em;">EN DESARROLLO</span>' +
+    '</div>' +
+    '</div>';
   document.getElementById('modal-fondo').classList.add('abierto');
-  document.body.style.overflow='hidden';
-  setTimeout(()=>document.querySelectorAll('#m-cuerpo pre code').forEach(el=>hljs.highlightElement(el)),60);
+  document.body.style.overflow = 'hidden';
 }
 
 function cambiarPestaña(btn, id){
