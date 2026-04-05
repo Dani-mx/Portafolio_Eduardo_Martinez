@@ -830,9 +830,13 @@ prediccion = alfa * sarima.forecast(h) + (1-alfa) * lstm.predict(X_prueba)</code
   }
 ];
 
+function abrirProyecto(url, id){
+  if(url){ window.location = url; } else { abrirModal(id); }
+}
+
 function renderizarProyectos(){
   document.getElementById('lista-proy').innerHTML = PROYECTOS.map(p=>`
-    <a class="proy-fila" href="#" onclick="${p.url ? 'window.location=\''+p.url+'\'' : 'abrirModal(\''+p.id+'\')' };return false;">
+    <a class="proy-fila" href="#" onclick="abrirProyecto('${p.url||''}','${p.id}');return false;">
       <div class="proy-num">${p.num}</div>
       <div>
         <div class="proy-cat">${p.cat}</div>
