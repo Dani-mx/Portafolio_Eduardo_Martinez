@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte de Ventas — Dulces Chávez · Eduardo D. Martínez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --crema:#FAF8F5;--blanco:#FFFFFF;--piedra:#F0EDE8;
+  --tinta:#18160F;--tinta2:#3D3A31;--tinta3:#7A7569;
+  --terr:#C4572A;--terr-lt:#E8896A;--terr-bg:#FBF1ED;--terr-bd:rgba(196,87,42,0.15);
+  --bd:rgba(0,0,0,0.07);--bd2:rgba(0,0,0,0.12);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{background:var(--crema);color:var(--tinta);font-family:var(--sans);display:flex;flex-direction:column;}
+
+nav{
+  height:54px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.5rem;background:rgba(250,248,245,0.96);
+  backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);
+  flex-shrink:0;
+}
+.nav-iz{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-ini{width:30px;height:30px;border-radius:5px;background:var(--tinta);color:var(--crema);font-family:var(--serif);font-size:12px;font-style:italic;display:flex;align-items:center;justify-content:center;}
+.nav-nm{font-size:12px;font-weight:500;color:var(--tinta2);}
+.nav-de{display:flex;align-items:center;gap:1rem;}
+.nav-badge{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--terr);background:var(--terr-bg);border:1px solid var(--terr-bd);padding:4px 10px;border-radius:100px;}
+.btn-v{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--tinta);color:var(--crema);padding:7px 14px;border-radius:4px;text-decoration:none;transition:background .2s;}
+.btn-v:hover{background:var(--terr);}
+
+.report-header{
+  padding:1.5rem 2.5rem 1.2rem;
+  background:var(--blanco);border-bottom:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;flex-shrink:0;
+}
+.report-info{}
+.report-tipo{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--terr);margin-bottom:.3rem;}
+.report-titulo{font-family:var(--serif);font-size:1.6rem;font-weight:700;color:var(--tinta);letter-spacing:-.02em;}
+.report-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.report-tag{font-family:var(--mono);font-size:10px;color:var(--tinta3);background:var(--piedra);border:1px solid var(--bd2);padding:4px 10px;border-radius:3px;}
+.btn-fullscreen{
+  display:flex;align-items:center;gap:7px;
+  font-size:11.5px;font-weight:600;letter-spacing:.05em;
+  color:var(--terr);background:var(--terr-bg);
+  border:1px solid var(--terr-bd);padding:8px 16px;border-radius:4px;
+  text-decoration:none;transition:background .2s;
+}
+.btn-fullscreen:hover{background:#f5e4db;}
+
+.report-frame{flex:1;min-height:0;}
+.report-frame iframe{
+  width:100%;height:100%;
+  border:none;display:block;
+}
+
+@media(max-width:700px){
+  nav{padding:0 1.2rem;}
+  .report-header{padding:1rem 1.2rem;}
+  .nav-badge{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-iz">
+    <div class="nav-ini">ED</div>
+    <span class="nav-nm">Eduardo D. Martínez</span>
+  </a>
+  <div class="nav-de">
+    <span class="nav-badge">Dashboards &amp; Analítica</span>
+    <a href="../../index.html" class="btn-v">&#8592; Portfolio</a>
+  </div>
+</nav>
+
+<div class="report-header">
+  <div class="report-info">
+    <div class="report-tipo">Reporte de Ventas &middot; Retail</div>
+    <div class="report-titulo">Dulces Chávez</div>
+  </div>
+  <div class="report-meta">
+    <span class="report-tag">Power BI</span>
+    <span class="report-tag">Ventas</span>
+    <span class="report-tag">KPIs</span>
+    <a class="btn-fullscreen"
+       href="https://app.powerbi.com/view?r=eyJrIjoiZjkxY2JmYTItZDc5NC00NTA0LThmNjktNDkwN2YyZTlkYzEyIiwidCI6IjU3ZGYyMjcwLWQ5M2QtNDU4MS05ZGU2LWRhMWE5MWNiNGMzNCJ9"
+       target="_blank">
+      &#10138; Abrir en pantalla completa
+    </a>
+  </div>
+</div>
+
+<div class="report-frame">
+  <iframe
+    src="https://app.powerbi.com/view?r=eyJrIjoiZjkxY2JmYTItZDc5NC00NTA0LThmNjktNDkwN2YyZTlkYzEyIiwidCI6IjU3ZGYyMjcwLWQ5M2QtNDU4MS05ZGU2LWRhMWE5MWNiNGMzNCJ9"
+    allowFullScreen="true">
+  </iframe>
+</div>
+
+</body>
+</html>

@@ -331,6 +331,33 @@ footer{background:var(--tinta);border-top:1px solid rgba(255,255,255,0.05);paddi
   .modal-pestañas{padding:0 1.5rem;}
   .mp-panel{padding:1.8rem 1.5rem;}
 }
+
+/* ── DASHBOARDS ── */
+#dashboards{background:var(--blanco);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;}
+.dash-card{
+  background:var(--crema);border:1px solid var(--bd2);border-radius:10px;
+  overflow:hidden;text-decoration:none;display:block;
+  transition:box-shadow .25s,transform .2s,border-color .25s;
+}
+.dash-card:hover{box-shadow:0 8px 32px rgba(0,0,0,0.08);transform:translateY(-2px);border-color:rgba(196,87,42,0.2);}
+.dash-preview{
+  width:100%;height:200px;border:none;pointer-events:none;
+  background:var(--piedra);overflow:hidden;position:relative;
+}
+.dash-preview iframe{
+  width:200%;height:200%;
+  transform:scale(0.5);transform-origin:top left;
+  border:none;pointer-events:none;
+}
+.dash-info{padding:1.4rem 1.6rem;}
+.dash-tipo{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--terracota);margin-bottom:.4rem;}
+.dash-titulo{font-family:var(--serif);font-size:1.25rem;font-weight:700;color:var(--tinta);margin-bottom:.5rem;letter-spacing:-.01em;}
+.dash-desc{font-size:13px;font-weight:300;color:var(--tinta3);line-height:1.65;margin-bottom:1rem;}
+.dash-footer{display:flex;align-items:center;justify-content:space-between;}
+.dash-tag{font-family:var(--mono);font-size:9px;color:var(--tinta3);background:var(--piedra);border:1px solid var(--bd2);padding:3px 9px;border-radius:3px;}
+.dash-link{font-size:11.5px;font-weight:600;color:var(--terracota);letter-spacing:.04em;display:flex;align-items:center;gap:5px;}
+
 </style>
 </head>
 <body>
@@ -343,6 +370,7 @@ footer{background:var(--tinta);border-top:1px solid rgba(255,255,255,0.05);paddi
   </a>
   <div class="nav-enlaces">
     <a href="#actividades">Actividades</a>
+    <a href="#dashboards">Dashboards</a>
     <a href="#proyectos">Proyectos</a>
     <a href="#perfil">Perfil</a>
     <a href="/cdn-cgi/l/email-protection#284d4c5d495a4c47064c4946414d4406455c525a4c52684f45494144064b4745" class="nav-cta">Contacto</a>
@@ -553,10 +581,63 @@ footer{background:var(--tinta);border-top:1px solid rgba(255,255,255,0.05);paddi
   <div class="lista-proyectos" id="lista-proy"></div>
 </section>
 
+
+<!-- DASHBOARDS -->
+<section id="dashboards">
+  <div class="enc-sec">
+    <span class="enc-num">03</span>
+    <h2 class="enc-titulo">Dashboards & <em>Analítica</em></h2>
+    <div class="enc-linea"></div>
+  </div>
+  <div class="dash-grid">
+
+    <!-- Dashboard 1: Dulces Chávez -->
+    <a class="dash-card" href="Proyectos/Dashboards/reporte_dulces_chavez.html" target="_blank">
+      <div class="dash-preview">
+        <iframe src="https://app.powerbi.com/view?r=eyJrIjoiZjkxY2JmYTItZDc5NC00NTA0LThmNjktNDkwN2YyZTlkYzEyIiwidCI6IjU3ZGYyMjcwLWQ5M2QtNDU4MS05ZGU2LWRhMWE5MWNiNGMzNCJ9" scrolling="no"></iframe>
+      </div>
+      <div class="dash-info">
+        <div class="dash-tipo">Ventas &middot; Retail</div>
+        <div class="dash-titulo">Reporte de Ventas — Dulces Chávez</div>
+        <div class="dash-desc">Análisis de ventas, KPIs de desempeño y seguimiento de tendencias para empresa de distribución de dulces.</div>
+        <div class="dash-footer">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="dash-tag">Power BI</span>
+            <span class="dash-tag">Ventas</span>
+            <span class="dash-tag">KPIs</span>
+          </div>
+          <span class="dash-link">Ver reporte ↗</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Dashboard 2: Baterías Power -->
+    <a class="dash-card" href="Proyectos/Dashboards/reporte_baterias_power.html" target="_blank">
+      <div class="dash-preview">
+        <iframe src="https://app.powerbi.com/view?r=eyJrIjoiNzQ0NDcwY2EtMzYwNi00MTAzLThiYTEtZjVlNWIyYzdmZTcxIiwidCI6IjU3ZGYyMjcwLWQ5M2QtNDU4MS05ZGU2LWRhMWE5MWNiNGMzNCJ9" scrolling="no"></iframe>
+      </div>
+      <div class="dash-info">
+        <div class="dash-tipo">Ventas &middot; Retail</div>
+        <div class="dash-titulo">Reporte de Ventas — Baterías Power</div>
+        <div class="dash-desc">Dashboard de ventas con seguimiento de métricas comerciales, análisis de productos y rendimiento por período.</div>
+        <div class="dash-footer">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="dash-tag">Power BI</span>
+            <span class="dash-tag">Ventas</span>
+            <span class="dash-tag">KPIs</span>
+          </div>
+          <span class="dash-link">Ver reporte ↗</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
 <!-- PERFIL -->
 <section id="perfil">
   <div class="enc-sec">
-    <span class="enc-num">03</span>
+    <span class="enc-num">04</span>
     <h2 class="enc-titulo">Perfil <em>académico</em></h2>
     <div class="enc-linea"></div>
   </div>
